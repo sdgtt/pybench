@@ -1,6 +1,6 @@
-import pyvisa
-
 import logging
+
+import pyvisa
 
 logging.basicConfig(level=logging.DEBUG)
 

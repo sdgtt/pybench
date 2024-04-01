@@ -1,5 +1,6 @@
 from bench import keysight
 
+
 def test_e36233a_auto():
     ps = keysight.E36233A()
     # Read all properties from all channels
@@ -9,4 +10,3 @@ def test_e36233a_auto():
         print(f"Current: {chan.current}")
         print(f"Output Enabled: {chan.output_enabled}")
         print(f"Operational Mode: {chan.operational_mode}")
-
