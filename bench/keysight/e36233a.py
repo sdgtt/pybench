@@ -1,6 +1,7 @@
 import logging
 
 import pyvisa
+from bench.common import Common
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -63,7 +64,7 @@ class __channel:
         self.parent._instr.write(f"OUTP:PAIR {value}")
 
 
-class E36233A:
+class E36233A(Common):
     id = "E36233A"
     num_channels = 2
 
@@ -84,21 +85,6 @@ class E36233A:
     def channels(self):
         """List all channels"""
         return [self.ch1, self.ch2]
-
-    def _find_device(self):
-        """Find desired devices automatically"""
-
-        rm = pyvisa.ResourceManager()
-        all_resources = rm.list_resources()
-        for res in all_resources:
-            logging.debug(f"Inspecting: {res}")
-            idn = rm.open_resource(res).query("*IDN?")
-            logging.debug(f"Found ID: {idn}")
-            if idn == self.id:
-                self.address = res
-                self._instr = rm.open_resource(self.address)
-                return
-        raise Exception(f"No instrument found with ID: {self.id}")
 
     @property
     def reset(self):
