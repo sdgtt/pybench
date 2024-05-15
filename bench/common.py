@@ -1,12 +1,12 @@
-import pyvisa
 import logging
 import os
+
+import pyvisa
 
 common_log = logging.getLogger(__name__)
 
 
 class Common:
-
     def __del__(self):
         """Close the instrument on object deletion"""
         self._instr.close()

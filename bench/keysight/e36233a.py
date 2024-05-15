@@ -6,7 +6,10 @@ from bench.common import Common
 logging.basicConfig(level=logging.DEBUG)
 
 
-class __channel:
+class channel:
+    """Individual output channel on the E36233A power supply
+    """
+
     def __init__(self, parent, channel_number):
         self.parent = parent
         self.channel_number = channel_number
@@ -20,17 +23,20 @@ class __channel:
 
     @property
     def voltage(self):
+        """Get or set the voltage of the channel"""
         self._set_channel()
         v_temp = self.parent._instr.query("SOUR:VOLT?")
         return self._to_float(v_temp)
 
     @voltage.setter
     def voltage(self, value):
+        """Get or set the voltage of the channel"""
         self._set_channel()
         self.parent._instr.write(f"SOUR:VOLT {value}")
 
     @property
     def current(self):
+        """Get or set the current of the channel"""
         self._set_channel()
         i_temp = self.parent._instr.query("SOUR:CURR?")
         return self._to_float(i_temp)
@@ -42,6 +48,7 @@ class __channel:
 
     @property
     def output_enabled(self):
+        """Enable output of channel (True) or disable output (False)"""
         self._set_channel()
         return self.parent._instr.query("OUTP:STAT?")
 
@@ -53,6 +60,11 @@ class __channel:
 
     @property
     def operational_mode(self):
+        """Get or set the operational mode of the channel. Options are:
+        OFF: Channel is off
+        SER: Channel is in series mode
+        PAR: Channel is in parallel mode
+        """
         self._set_channel()
         return self.parent._instr.query("OUTP:PAIR?")
 
@@ -60,17 +72,27 @@ class __channel:
     def operational_mode(self, value):
         self._set_channel()
         if value not in ["OFF", "SER", "PAR"]:
-            raise Exception(f"Invalid operational mode. Must be one of: OFF, SER, PAR")
+            raise Exception("Invalid operational mode. Must be one of: OFF, SER, PAR")
         self.parent._instr.write(f"OUTP:PAIR {value}")
 
 
 class E36233A(Common):
-    id = "E36233A"
-    num_channels = 2
-
     """Keysight E36233A Power Supply"""
 
-    def __init__(self, address=None) -> None:
+    id = "E36233A"
+    """Substring returned by *IDN? query to identify the device"""
+
+    num_channels = 2
+    """Number of channels on the device"""
+
+    def __init__(self, address: str = None) -> None:
+        """Initialize the E36233A power supply
+
+        Parameters
+        ----------
+        address : str, optional
+            VISA address of the device. If not provided, the device will be found automatically.
+        """
         if not address:
             self._find_device()
         else:
@@ -79,8 +101,8 @@ class E36233A(Common):
             if self._instr.query("*IDN?") != self.id:
                 raise Exception(f"Device at {self.address} is not a {self.id}")
 
-        self.ch1 = __channel(self, 1)
-        self.ch2 = __channel(self, 2)
+        self.ch1 = channel(self, 1)
+        self.ch2 = channel(self, 2)
 
     def channels(self):
         """List all channels"""

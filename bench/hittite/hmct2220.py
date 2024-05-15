@@ -1,7 +1,6 @@
-import pyvisa
-
 import logging
 
+import pyvisa
 from bench.common import Common
 
 hmct2220_logger = logging.getLogger(__name__)
