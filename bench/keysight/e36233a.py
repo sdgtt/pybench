@@ -98,8 +98,12 @@ class E36233A(Common):
         else:
             self.address = address
             self._instr = pyvisa.ResourceManager().open_resource(self.address)
-            if self._instr.query("*IDN?") != self.id:
-                raise Exception(f"Device at {self.address} is not a {self.id}")
+            self._instr.timeout = 15000
+            q_id = self._instr.query("*IDN?")
+            if self.id not in q_id:
+                raise Exception(
+                    f"Device at {self.address} is not a {self.id}. Got {q_id}"
+                )
 
         self.ch1 = channel(self, 1)
         self.ch2 = channel(self, 2)

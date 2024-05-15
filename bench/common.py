@@ -9,9 +9,11 @@ common_log = logging.getLogger(__name__)
 class Common:
     def __del__(self):
         """Close the instrument on object deletion"""
-        self._instr.close()
+        if hasattr(self, "_instr"):
+            self._instr.close()
         self.address = None
-        self._rm.close()
+        if hasattr(self, "_rm"):
+            self._rm.close()
 
     def _find_dev_ind(self, rm):
         all_resources = rm.list_resources()
@@ -23,6 +25,7 @@ class Common:
                 common_log.info(f"Found {self.id} at {res}")
                 self.address = res
                 self._instr = rm.open_resource(self.address)
+                self._instr.timeout = 15000
                 return True
 
         return False
