@@ -3,6 +3,26 @@ name: Documentation Tests
 on: [push, pull_request]
 
 jobs:
+  Doc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements_dev.txt
+          pip install -r dev/requirements.txt
+
+      - name: Build doc
+        run: |
+          cd doc && make html
+          cd ..
+
   CheckDocs:
     runs-on: ubuntu-latest
 
@@ -62,7 +82,7 @@ jobs:
         
   DeployMainDoc:
     runs-on: ubuntu-latest
-    needs: [Test,Lint,Doc]
+    needs: [CheckDocs, Doc]
     if: github.ref == 'refs/heads/main'
 
     steps:
@@ -91,7 +111,7 @@ jobs:
 
   DeployDevelopmentDoc:
     runs-on: ubuntu-latest
-    needs: [Test,Lint,Doc]
+    needs: [CheckDocs, Doc]
     # Only run on pull requests to main and non-forks
     if: github.event_name == 'pull_request' && github.base_ref == 'main' && ! github.event.pull_request.head.repo.fork
     steps:
