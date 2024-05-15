@@ -26,6 +26,7 @@ class Common:
                 self.address = res
                 self._instr = rm.open_resource(self.address)
                 self._instr.timeout = 15000
+                self._instr.write("*CLS")
                 return True
 
         return False

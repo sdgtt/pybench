@@ -99,6 +99,7 @@ class E36233A(Common):
             self.address = address
             self._instr = pyvisa.ResourceManager().open_resource(self.address)
             self._instr.timeout = 15000
+            self._instr.write("*CLS")
             q_id = self._instr.query("*IDN?")
             if self.id not in q_id:
                 raise Exception(
