@@ -80,7 +80,7 @@ class E36233A(Common):
     """Keysight E36233A Power Supply"""
 
     id = "E36233A"
-    """Substring returned by *IDN? query to identify the device"""
+    """Substring returned by IDN query to identify the device"""
 
     num_channels = 2
     """Number of channels on the device"""

@@ -15,3 +15,9 @@ bench.hittite.hmct2220.rst
 bench.keysight.e36233a.rst
 
 ```
+
+```{toctree}
+:hidden: true
+bench.common.rst
+
+```

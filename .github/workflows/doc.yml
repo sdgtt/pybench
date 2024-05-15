@@ -60,26 +60,26 @@ jobs:
 
           Doc:
             runs-on: ubuntu-latest
-        
+
             steps:
               - uses: actions/checkout@v2
               - name: Set up Python 3.8
                 uses: actions/setup-python@v2
                 with:
                   python-version: 3.8
-        
+
               - name: Install dependencies
                 run: |
                   bash ./.github/scripts/install_libiio.sh
                   bash ./.github/scripts/install_part_libs.sh
                   bash ./.github/scripts/install_pydeps.sh
                   pip install -r requirements_doc.txt
-        
+
               - name: Build doc
                 run: |
                   cd doc && make html
                   cd ..
-        
+
   DeployMainDoc:
     runs-on: ubuntu-latest
     needs: [CheckDocs, Doc]

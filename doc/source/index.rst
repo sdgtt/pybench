@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-pybench: Lab Bench Instrument Controls in Python 
+pybench: Lab Bench Instrument Controls in Python
 ================================================
 
 .. toctree::
