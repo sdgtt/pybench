@@ -33,11 +33,13 @@ extensions = [
     "sphinx.ext.githubpages",
     "myst_parser",
     "sphinxcontrib.mermaid",
+    "sphinx_remove_toctrees",
 ]
 
 templates_path = ["_templates"]
 exclude_patterns = []
 
+remove_from_toctrees = ["instruments/bench.common.rst"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

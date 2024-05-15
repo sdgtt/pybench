@@ -3,3 +3,4 @@ myst-parser
 sphinxcontrib-mermaid
 pillow
 furo
+sphinx-remove-toctrees
