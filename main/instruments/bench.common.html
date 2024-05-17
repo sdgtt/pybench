@@ -262,9 +262,47 @@
 <span id="bench-common-module"></span><h1>bench.common module<a class="headerlink" href="#module-bench.common" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="bench.common.Common">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bench.common.</span></span><span class="sig-name descname"><span class="pre">Common</span></span><a class="headerlink" href="#bench.common.Common" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bench.common.</span></span><span class="sig-name descname"><span class="pre">Common</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.Common" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="bench.common.Common.config_file">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config_file</span></span><a class="headerlink" href="#bench.common.Common.config_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bench.common.Common.config_locations">
+<span class="sig-name descname"><span class="pre">config_locations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['.',</span> <span class="pre">'/etc/']</span></em><a class="headerlink" href="#bench.common.Common.config_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paths to search for config</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.common.Common.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.Common.connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.common.Common.query_error">
+<span class="sig-name descname"><span class="pre">query_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.Common.query_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries for PXA error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – Error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bench.common.Common.use_config_file">
+<span class="sig-name descname"><span class="pre">use_config_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#bench.common.Common.use_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use config file to get address for instrument(s)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bench.common.check_connected">
+<span class="sig-prename descclassname"><span class="pre">bench.common.</span></span><span class="sig-name descname"><span class="pre">check_connected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.check_connected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </section>
 
@@ -316,7 +354,15 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">bench.common module</a><ul>
-<li><a class="reference internal" href="#bench.common.Common"><code class="docutils literal notranslate"><span class="pre">Common</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.Common"><code class="docutils literal notranslate"><span class="pre">Common</span></code></a><ul>
+<li><a class="reference internal" href="#bench.common.Common.config_file"><code class="docutils literal notranslate"><span class="pre">Common.config_file</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.Common.config_locations"><code class="docutils literal notranslate"><span class="pre">Common.config_locations</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.Common.connect"><code class="docutils literal notranslate"><span class="pre">Common.connect()</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.Common.query_error"><code class="docutils literal notranslate"><span class="pre">Common.query_error()</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.Common.use_config_file"><code class="docutils literal notranslate"><span class="pre">Common.use_config_file</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bench.common.check_connected"><code class="docutils literal notranslate"><span class="pre">check_connected()</span></code></a></li>
 </ul>
 </li>
 </ul>
