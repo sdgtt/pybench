@@ -1,9 +1,7 @@
 import logging
 
 import pyvisa
-from bench.common import Common
-
-logging.basicConfig(level=logging.DEBUG)
+from bench.common import Common, check_connected
 
 
 class channel:
@@ -14,6 +12,10 @@ class channel:
         self.parent = parent
         self.channel_number = channel_number
 
+    @property
+    def _connected(self):
+        return self.parent._connected
+
     def _set_channel(self):
         self.parent._instr.write(f"INST CH{self.channel_number}")
 
@@ -22,6 +24,7 @@ class channel:
         return float(numbers[0]) * pow(10, int(numbers[1]))
 
     @property
+    @check_connected
     def voltage(self):
         """Get or set the voltage of the channel"""
         self._set_channel()
@@ -85,27 +88,7 @@ class E36233A(Common):
     num_channels = 2
     """Number of channels on the device"""
 
-    def __init__(self, address: str = None) -> None:
-        """Initialize the E36233A power supply
-
-        Parameters
-        ----------
-        address : str, optional
-            VISA address of the device. If not provided, the device will be found automatically.
-        """
-        if not address:
-            self._find_device()
-        else:
-            self.address = address
-            self._instr = pyvisa.ResourceManager().open_resource(self.address)
-            self._instr.timeout = 15000
-            self._instr.write("*CLS")
-            q_id = self._instr.query("*IDN?")
-            if self.id not in q_id:
-                raise Exception(
-                    f"Device at {self.address} is not a {self.id}. Got {q_id}"
-                )
-
+    def _post_init_(self, address: str = None, use_config_file=False) -> None:
         self.ch1 = channel(self, 1)
         self.ch2 = channel(self, 2)
 

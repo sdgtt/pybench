@@ -1,7 +1,7 @@
 import logging
 
 import pyvisa
-from bench.common import Common
+from bench.common import Common, check_connected
 
 hmct2220_logger = logging.getLogger(__name__)
 

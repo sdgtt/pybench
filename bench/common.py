@@ -2,18 +2,106 @@ import logging
 import os
 
 import pyvisa
+import yaml
 
 common_log = logging.getLogger(__name__)
 
 
+def check_connected(func):
+    def check(*args, **kwargs):
+        self = args[0]
+        if not self._connected:
+            raise Exception("Must connect to instrument first. Run connect method")
+        return func(*args, **kwargs)
+
+    return check
+
+
 class Common:
+
+    config_locations = [".", "/etc/"]
+    """Paths to search for config"""
+
+    use_config_file = False
+    """Use config file to get address for instrument(s)"""
+
+    _config_file = None
+    """Used config at runtime"""
+
+    _config = None
+    """Read in config"""
+
+    _config_filename = "bench.yaml"
+    """Filename used for config"""
+
+    _connected = False
+    """State of connected to instrument"""
+
+    _teardown = False
+
+    def __getattribute__(self, name):
+        if name == "_instr":
+            td = object.__getattribute__(
+                self, "_teardown"
+            )  # Don't trigger on destructor
+            if not object.__getattribute__(self, "_connected") and not td:
+                raise Exception("Must connect to instrument first. Run connect method")
+        return object.__getattribute__(self, name)
+
+    @property
+    def config_file(self):
+        return self._config_file
+
+    @config_file.setter
+    def config_file(self, value):
+        if not os.path.isfile(value):
+            raise Exception(f"No config file found at {value}")
+        self._config_file = value
+
+    def __init__(self, address: str = None, use_config_file=False) -> None:
+        """Initialize the N9040B UXA
+
+        Parameters
+        ----------
+        address : str, optional
+            VISA address of the device. If not provided, the device will be found automatically.
+        """
+        if use_config_file:
+            self.use_config_file = use_config_file
+            self._read_from_config()
+        else:
+            self.address = address
+
+        self._post_init_()
+
+    def _post_init_(self):
+        pass
+
     def __del__(self):
         """Close the instrument on object deletion"""
+        self._teardown = True
         if hasattr(self, "_instr"):
             self._instr.close()
         self.address = None
         if hasattr(self, "_rm"):
             self._rm.close()
+
+    def connect(self):
+        if self._connected:
+            print("Already connected")
+            return
+        if not self.address:
+            self._find_device()
+        else:
+            self._instr = pyvisa.ResourceManager().open_resource(self.address)
+            self._connected = True
+            self._instr.timeout = 15000
+            self._instr.write("*CLS")
+            q_id = self._instr.query("*IDN?")
+            if self.id not in q_id:
+                raise Exception(
+                    f"Device at {self.address} is not a {self.id}. Got {q_id}"
+                )
 
     def _find_dev_ind(self, rm):
         all_resources = rm.list_resources()
@@ -47,3 +135,45 @@ class Common:
             return
 
         raise Exception(f"No instrument found with ID: {self.id}")
+
+    def _read_from_config(self):
+
+        if not self._config_file:
+            self._find_config()
+
+        with open(self._config_file, "r") as f:
+            self._config = yaml.load(f, Loader=yaml.FullLoader)
+
+        for device in self._config:
+            item = self._config[device]
+            if "type" not in item.keys():
+                print(f"{item} has no field type. Skipping ...")
+                continue
+            if item["type"] == self.id:
+                if "address" not in item.keys():
+                    print(f"{item} has no field address. Skipping ...")
+                    continue
+                self.address = item["address"]
+                return
+        raise Exception(f"No instruments of ID {self.id} found in config")
+
+    def _find_config(self):
+        """Find config on path"""
+        for path in self.config_locations:
+            fn = os.path.join(path, self._config_filename)
+            if os.path.isfile(fn):
+                self._config_file = fn
+                return
+        raise Exception("No config found")
+
+    def query_error(self):
+        """Queries for PXA error
+
+        :raises AttributeError: Error
+        """
+        err = self._instr.query_ascii_values("SYST:ERR?", converter="s")
+        err = int(err[0]), err[1]
+        if err[0] != 0:
+            self._inst.write("*CLS")
+            print(f"ErrorCode:{err[0]}, Message:{err[1]}")
+            raise AttributeError(err)
