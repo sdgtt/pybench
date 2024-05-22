@@ -10,6 +10,7 @@ pybench: Lab Bench Instrument Controls in Python
    :maxdepth: 1
    :caption: Contents:
 
+   install.md
    instruments/index
 
 
