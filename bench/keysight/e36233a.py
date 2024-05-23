@@ -53,26 +53,26 @@ class channel:
     def output_enabled(self):
         """Enable output of channel (True) or disable output (False)"""
         self._set_channel()
-        return self.parent._instr.query("OUTP:STAT?")
+        return bool(self.parent._instr.query("OUTP:STAT?"))
 
     @output_enabled.setter
-    def output_enabled(self, value):
+    def output_enabled(self, value) -> bool:
         self._set_channel()
         value = 1 if value else 0
         self.parent._instr.write(f"OUTP:STAT {value}")
 
     @property
-    def operational_mode(self):
+    def operational_mode(self) -> str:
         """Get or set the operational mode of the channel. Options are:
         OFF: Channel is off
         SER: Channel is in series mode
         PAR: Channel is in parallel mode
         """
         self._set_channel()
-        return self.parent._instr.query("OUTP:PAIR?")
+        return str(self.parent._instr.query("OUTP:PAIR?")).replace("\n","")
 
     @operational_mode.setter
-    def operational_mode(self, value):
+    def operational_mode(self, value: str):
         self._set_channel()
         if value not in ["OFF", "SER", "PAR"]:
             raise Exception("Invalid operational mode. Must be one of: OFF, SER, PAR")

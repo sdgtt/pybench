@@ -22,6 +22,9 @@ class Common:
     config_locations = [".", "/etc/"]
     """Paths to search for config"""
 
+    use_py_resource_manager = True
+    """Use @py resource manager"""
+
     use_config_file = False
     """Use config file to get address for instrument(s)"""
 
@@ -80,10 +83,10 @@ class Common:
     def __del__(self):
         """Close the instrument on object deletion"""
         self._teardown = True
-        if hasattr(self, "_instr"):
+        if hasattr(self, "_instr") and self._instr:
             self._instr.close()
         self.address = None
-        if hasattr(self, "_rm"):
+        if hasattr(self, "_rm") and self._rm:
             self._rm.close()
 
     def connect(self):
@@ -93,7 +96,12 @@ class Common:
         if not self.address:
             self._find_device()
         else:
-            self._instr = pyvisa.ResourceManager().open_resource(self.address)
+            common_log.info(f"Using address {self.address}")
+            if self.use_py_resource_manager:
+                self._rm = pyvisa.ResourceManager("@py")
+            else:
+                self._rm = pyvisa.ResourceManager()
+            self._instr = self._rm.open_resource(self.address)
             self._connected = True
             self._instr.timeout = 15000
             self._instr.write("*CLS")
@@ -102,6 +110,15 @@ class Common:
                 raise Exception(
                     f"Device at {self.address} is not a {self.id}. Got {q_id}"
                 )
+
+    def disconnect(self):
+        if not self._connected:
+            print("Not connected. Not doing anything")
+            return
+        self._instr.close()
+        self._instr = None
+        self._rm.close()
+        self._rm = None
 
     def _find_dev_ind(self, rm):
         all_resources = rm.list_resources()

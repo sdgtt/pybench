@@ -1,0 +1,6 @@
+powersupply:
+  address: "TCPIP::192.168.10.31::inst0::INSTR"
+  type: E36233A
+specan:
+  address: "TCPIP::192.168.10.21::inst0::INSTR"
+  type: N9040B
