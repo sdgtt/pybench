@@ -69,7 +69,7 @@ class channel:
         PAR: Channel is in parallel mode
         """
         self._set_channel()
-        return str(self.parent._instr.query("OUTP:PAIR?")).replace("\n","")
+        return str(self.parent._instr.query("OUTP:PAIR?")).replace("\n", "")
 
     @operational_mode.setter
     def operational_mode(self, value: str):
