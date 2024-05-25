@@ -50,6 +50,9 @@ namespaces = true
 #     "paramiko"
 # ]
 
+[project.entry-points.pytest11]
+pybench = "bench.plugin"
+
 [project.urls]
 homepage = "https://tfcollins.github.io/pybench/"
 documentation = "https://tfcollins.github.io/pybench/"
