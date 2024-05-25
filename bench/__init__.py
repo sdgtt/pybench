@@ -1,7 +1,7 @@
 """pybench: a python module for interfacing with bench equipment."""
 __version__ = "0.0.1"
 
-from . import hittite, keysight
+from . import all, hittite, keysight, rs
 
 # from . import tektronix
 # from . import rigol
