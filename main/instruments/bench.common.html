@@ -265,6 +265,18 @@
 <dt class="sig sig-object py" id="bench.common.Common">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bench.common.</span></span><span class="sig-name descname"><span class="pre">Common</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.Common" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bench.common.Common.auto_connect">
+<span class="sig-name descname"><span class="pre">auto_connect</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#bench.common.Common.auto_connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically connect to hardware when running methods</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bench.common.Common.auto_reconnect">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">auto_reconnect</span></span><a class="headerlink" href="#bench.common.Common.auto_reconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically reconnect if connection dropped</p>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="bench.common.Common.config_file">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config_file</span></span><a class="headerlink" href="#bench.common.Common.config_file" title="Permalink to this definition">¶</a></dt>
@@ -315,6 +327,43 @@
 <dt class="sig sig-object py" id="bench.common.check_connected">
 <span class="sig-prename descclassname"><span class="pre">bench.common.</span></span><span class="sig-name descname"><span class="pre">check_connected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.check_connected" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bench.common.instrument">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bench.common.</span></span><span class="sig-name descname"><span class="pre">instrument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_reconnect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.instrument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Shim layer between pyvisa instrument class and pybench instruments</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.common.instrument.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.instrument.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.common.instrument.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.instrument.query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.common.instrument.query_ascii_values">
+<span class="sig-name descname"><span class="pre">query_ascii_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.instrument.query_ascii_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.common.instrument.read_raw">
+<span class="sig-name descname"><span class="pre">read_raw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.instrument.read_raw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bench.common.instrument.timeout">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">timeout</span></span><a class="headerlink" href="#bench.common.instrument.timeout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.common.instrument.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.common.instrument.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 </section>
 
@@ -367,6 +416,8 @@
             <ul>
 <li><a class="reference internal" href="#">bench.common module</a><ul>
 <li><a class="reference internal" href="#bench.common.Common"><code class="docutils literal notranslate"><span class="pre">Common</span></code></a><ul>
+<li><a class="reference internal" href="#bench.common.Common.auto_connect"><code class="docutils literal notranslate"><span class="pre">Common.auto_connect</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.Common.auto_reconnect"><code class="docutils literal notranslate"><span class="pre">Common.auto_reconnect</span></code></a></li>
 <li><a class="reference internal" href="#bench.common.Common.config_file"><code class="docutils literal notranslate"><span class="pre">Common.config_file</span></code></a></li>
 <li><a class="reference internal" href="#bench.common.Common.config_locations"><code class="docutils literal notranslate"><span class="pre">Common.config_locations</span></code></a></li>
 <li><a class="reference internal" href="#bench.common.Common.connect"><code class="docutils literal notranslate"><span class="pre">Common.connect()</span></code></a></li>
@@ -377,6 +428,15 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#bench.common.check_connected"><code class="docutils literal notranslate"><span class="pre">check_connected()</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.instrument"><code class="docutils literal notranslate"><span class="pre">instrument</span></code></a><ul>
+<li><a class="reference internal" href="#bench.common.instrument.close"><code class="docutils literal notranslate"><span class="pre">instrument.close()</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.instrument.query"><code class="docutils literal notranslate"><span class="pre">instrument.query()</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.instrument.query_ascii_values"><code class="docutils literal notranslate"><span class="pre">instrument.query_ascii_values()</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.instrument.read_raw"><code class="docutils literal notranslate"><span class="pre">instrument.read_raw()</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.instrument.timeout"><code class="docutils literal notranslate"><span class="pre">instrument.timeout</span></code></a></li>
+<li><a class="reference internal" href="#bench.common.instrument.write"><code class="docutils literal notranslate"><span class="pre">instrument.write()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
