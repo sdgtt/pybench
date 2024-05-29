@@ -17,6 +17,82 @@ def check_connected(func):
     return check
 
 
+class instrument:
+    """Shim layer between pyvisa instrument class and pybench instruments"""
+
+    def __init__(self, rm, address, auto_reconnect=True):
+        self.rm = rm
+        self.address = address
+        self.instr = rm.open_resource(address)
+        self.auto_reconnect = auto_reconnect
+
+    def _reconnect(self, error):
+        if not self.auto_reconnect:
+            raise error
+
+        print("Reconnecting")
+        # try:
+        # if self.use_py_resource_manager:
+        #     self.rm = pyvisa.ResourceManager("@py")
+        # else:
+        #     self.rm = pyvisa.ResourceManager()
+        self.instr = self.rm.open_resource(self.address)
+        # self.instr.timeout = 15000
+        self.instr.write("*CLS")
+        # q_id = self.instr.query("*IDN?")
+        # if self.id not in q_id:
+        #     raise Exception(
+        #         f"Device at {self.address} is not a {self.id}. Got {q_id}"
+        #     )
+
+    def query(self, cmd):
+        try:
+            return self.instr.query(cmd)
+        except Exception as ex:
+            self._reconnect(ex)
+            return self.instr.query(cmd)
+
+    def query_ascii_values(self, cmd, converter=None):
+        try:
+            return self.instr.query_ascii_values(cmd, converter)
+        except Exception as ex:
+            self._reconnect(ex)
+            return self.instr.query_ascii_values(cmd, converter)
+
+    def write(self, cmd):
+        try:
+            self.instr.write(cmd)
+        except Exception as ex:
+            self._reconnect(ex)
+            self.instr.write(cmd)
+
+    def close(self):
+        self.instr.close()
+
+    def read_raw(self):
+        try:
+            return self.instr.read_raw()
+        except Exception as ex:
+            self._reconnect(ex)
+            return self.instr.read_raw()
+
+    @property
+    def timeout(self):
+        try:
+            return self.instr.timeout
+        except Exception as ex:
+            self._reconnect(ex)
+            return self.instr.timeout
+
+    @timeout.setter
+    def timeout(self, value):
+        try:
+            self.instr.timeout = value
+        except Exception as ex:
+            self._reconnect(ex)
+            self.instr.timeout = value
+
+
 class Common:
 
     config_locations = [".", "/etc/"]
@@ -24,6 +100,9 @@ class Common:
 
     auto_connect = True
     """Automatically connect to hardware when running methods"""
+
+    _auto_reconnect = True
+    """Try to reconnect if connection dropped"""
 
     use_py_resource_manager = True
     """Use @py resource manager"""
@@ -72,6 +151,17 @@ class Common:
             raise Exception(f"No config file found at {value}")
         self._config_file = value
 
+    @property
+    def auto_reconnect(self):
+        """Automatically reconnect if connection dropped"""
+        return self._auto_reconnect
+
+    @auto_reconnect.setter
+    def auto_reconnect(self, value):
+        if hasattr(self, "_instr"):
+            self._instr.auto_reconnect = value
+        self._auto_reconnect = value
+
     def __init__(self, address: str = None, use_config_file=False) -> None:
         """Initialize the N9040B UXA
 
@@ -112,7 +202,7 @@ class Common:
                 self._rm = pyvisa.ResourceManager("@py")
             else:
                 self._rm = pyvisa.ResourceManager()
-            self._instr = self._rm.open_resource(self.address)
+            self._instr = instrument(self._rm, self.address, self.auto_reconnect)
             self._connected = True
             self._instr.timeout = 15000
             self._instr.write("*CLS")
@@ -140,7 +230,8 @@ class Common:
             if self.id in idn:
                 common_log.info(f"Found {self.id} at {res}")
                 self.address = res
-                self._instr = rm.open_resource(self.address)
+                # self._instr = rm.open_resource(self.address)
+                self._instr = instrument(rm, self.address, self.auto_reconnect)
                 self._instr.timeout = 15000
                 self._instr.write("*CLS")
                 return True

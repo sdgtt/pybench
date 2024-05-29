@@ -1,4 +1,4 @@
 """Import all modules into flat structure"""
-from ..keysight import *
 from ..hittite import *
+from ..keysight import *
 from ..rs import *

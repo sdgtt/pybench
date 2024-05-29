@@ -1,15 +1,15 @@
 """pytest plugin for pybenc"""
-import os
-import yaml
 import logging
-
-import pytest
+import os
 
 import bench
+import pytest
+import yaml
 from bench.common import Common as bcom
 
 p_logger = logging.getLogger("PYBENCH-PLUGGIN")
 # p_logger.setLevel(logging.INFO)
+
 
 def pytest_addoption(parser):
     group = parser.getgroup("pybench")
@@ -20,6 +20,7 @@ def pytest_addoption(parser):
         default=None,
         help="Set location of pybench config file",
     )
+
 
 @pytest.fixture(scope="session")
 def parse_instruments(request):
@@ -49,7 +50,7 @@ def parse_instruments(request):
             continue
         p_logger.info(f'Trying {item["type"]} at {item["address"]}')
         try:
-            dev = eval(f'''bench.all.{item["type"]}(address='{item["address"]}')''')
+            dev = eval(f"""bench.all.{item["type"]}(address='{item["address"]}')""")
             dev.connect()
             valid_instruments[item["type"]] = item["address"]
             dev.disconnect()
@@ -59,6 +60,7 @@ def parse_instruments(request):
             continue
 
     return valid_instruments
+
 
 def _instrument_addresses(request, parse_instruments):
     print(dir(request))
@@ -72,15 +74,21 @@ def _instrument_addresses(request, parse_instruments):
         for requested_instrument in requested:
             p_logger.info(f"Looking for {requested_instrument}")
             if requested_instrument in parse_instruments.keys():
-                applicable.append({requested_instrument: parse_instruments[requested_instrument]})
+                applicable.append(
+                    {requested_instrument: parse_instruments[requested_instrument]}
+                )
             else:
-                pytest.skip(f"Required Instrument not found ({requested_instrument}). Skipping...")
+                pytest.skip(
+                    f"Required Instrument not found ({requested_instrument}). Skipping..."
+                )
         return applicable
     return None
+
 
 @pytest.fixture(scope="function")
 def instrument_addresses(request, parse_instruments) -> dict:
     return _instrument_addresses(request, parse_instruments)
+
 
 @pytest.fixture(scope="session")
 def instrument_addresses_session(request, parse_instruments) -> dict:
