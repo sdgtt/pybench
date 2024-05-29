@@ -22,6 +22,9 @@ class Common:
     config_locations = [".", "/etc/"]
     """Paths to search for config"""
 
+    auto_connect = True
+    """Automatically connect to hardware when running methods"""
+
     use_py_resource_manager = True
     """Use @py resource manager"""
 
@@ -47,8 +50,16 @@ class Common:
             td = object.__getattribute__(
                 self, "_teardown"
             )  # Don't trigger on destructor
+            ac = object.__getattribute__(
+                self, "auto_connect"
+            )  # Don't trigger on destructor
             if not object.__getattribute__(self, "_connected") and not td:
-                raise Exception("Must connect to instrument first. Run connect method")
+                if ac:
+                    self.connect()
+                else:
+                    raise Exception(
+                        "Must connect to instrument first. Run connect method"
+                    )
         return object.__getattribute__(self, name)
 
     @property
