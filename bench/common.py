@@ -25,6 +25,7 @@ class instrument:
         self.address = address
         self.instr = rm.open_resource(address)
         self.auto_reconnect = auto_reconnect
+        self.use_py_resource_manager = use_py_resource_manager
 
     def _reconnect(self, error):
         if not self.auto_reconnect:
