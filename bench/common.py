@@ -20,7 +20,7 @@ def check_connected(func):
 class instrument:
     """Shim layer between pyvisa instrument class and pybench instruments"""
 
-    def __init__(self, rm, address, auto_reconnect=True):
+    def __init__(self, rm, address, auto_reconnect=True, use_py_resource_manager=True):
         self.rm = rm
         self.address = address
         self.instr = rm.open_resource(address)
@@ -31,19 +31,13 @@ class instrument:
             raise error
 
         print("Reconnecting")
-        # try:
-        # if self.use_py_resource_manager:
-        #     self.rm = pyvisa.ResourceManager("@py")
-        # else:
-        #     self.rm = pyvisa.ResourceManager()
+        if self.use_py_resource_manager:
+            self.rm = pyvisa.ResourceManager("@py")
+        else:
+            self.rm = pyvisa.ResourceManager()
         self.instr = self.rm.open_resource(self.address)
-        # self.instr.timeout = 15000
+        self.instr.timeout = 15000
         self.instr.write("*CLS")
-        # q_id = self.instr.query("*IDN?")
-        # if self.id not in q_id:
-        #     raise Exception(
-        #         f"Device at {self.address} is not a {self.id}. Got {q_id}"
-        #     )
 
     def query(self, cmd):
         try:
@@ -202,7 +196,12 @@ class Common:
                 self._rm = pyvisa.ResourceManager("@py")
             else:
                 self._rm = pyvisa.ResourceManager()
-            self._instr = instrument(self._rm, self.address, self.auto_reconnect)
+            self._instr = instrument(
+                self._rm,
+                self.address,
+                self.auto_reconnect,
+                self.use_py_resource_manager,
+            )
             self._connected = True
             self._instr.timeout = 15000
             self._instr.write("*CLS")
@@ -231,7 +230,9 @@ class Common:
                 common_log.info(f"Found {self.id} at {res}")
                 self.address = res
                 # self._instr = rm.open_resource(self.address)
-                self._instr = instrument(rm, self.address, self.auto_reconnect)
+                self._instr = instrument(
+                    rm, self.address, self.auto_reconnect, self.use_py_resource_manager
+                )
                 self._instr.timeout = 15000
                 self._instr.write("*CLS")
                 return True
