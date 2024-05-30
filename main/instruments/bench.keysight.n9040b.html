@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Keysight E36233A Power Supply" href="bench.keysight.e36233a.html" /><link rel="prev" title="Supported Instruments" href="index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Rohde &amp; Schwarz SMA100A Signal Generator" href="bench.rs.sma100a.html" /><link rel="prev" title="Keysight E36233A Power Supply" href="bench.keysight.e36233a.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.05.06 -->
-        <title>Hittite HMCT2220 Frequency Generator - pybench v0.0.1</title>
+        <title>Keysight N9040B UXA Spectrum Analyzer - pybench v0.0.1</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -215,9 +215,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Dependencies</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Supported Instruments</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Supported Instruments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Hittite HMCT2220 Frequency Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bench.hittite.hmct2220.html">Hittite HMCT2220 Frequency Generator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bench.keysight.e36233a.html">Keysight E36233A Power Supply</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bench.keysight.n9040b.html">Keysight N9040B UXA Spectrum Analyzer</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Keysight N9040B UXA Spectrum Analyzer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bench.rs.sma100a.html">Rohde &amp; Schwarz SMA100A Signal Generator</a></li>
 </ul>
 </li>
@@ -241,7 +241,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/instruments/bench.hittite.hmct2220.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/instruments/bench.keysight.n9040b.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -261,32 +261,87 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-bench.hittite.hmct2220">
-<span id="hittite-hmct2220-frequency-generator"></span><h1>Hittite HMCT2220 Frequency Generator<a class="headerlink" href="#module-bench.hittite.hmct2220" title="Permalink to this heading">¶</a></h1>
+          <section id="module-bench.keysight.n9040b">
+<span id="keysight-n9040b-uxa-spectrum-analyzer"></span><h1>Keysight N9040B UXA Spectrum Analyzer<a class="headerlink" href="#module-bench.keysight.n9040b" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="bench.hittite.hmct2220.HMCT2220">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bench.hittite.hmct2220.</span></span><span class="sig-name descname"><span class="pre">HMCT2220</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">visa_address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.hittite.hmct2220.HMCT2220" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bench.keysight.n9040b.</span></span><span class="sig-name descname"><span class="pre">N9040B</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.keysight.n9040b.N9040B" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="bench.common.html#bench.common.Common" title="bench.common.Common"><code class="xref py py-class docutils literal notranslate"><span class="pre">Common</span></code></a></p>
+<p>Keysight N9040B UXA</p>
 <dl class="py property">
-<dt class="sig sig-object py" id="bench.hittite.hmct2220.HMCT2220.frequency">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency</span></span><a class="headerlink" href="#bench.hittite.hmct2220.HMCT2220.frequency" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B.center_frequency">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">center_frequency</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#bench.keysight.n9040b.N9040B.center_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current center frequency in Hz</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B.get_marker_amplitude">
+<span class="sig-name descname"><span class="pre">get_marker_amplitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.keysight.n9040b.N9040B.get_marker_amplitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current value of marker in dBm</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B.get_peak_table">
+<span class="sig-name descname"><span class="pre">get_peak_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak_threshold_dBm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excursion_dB</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#bench.keysight.n9040b.N9040B.get_peak_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get table of peaks</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>peak_threshold_dBm (float) : Minimum threshold for peak
+excursion_dB (float) : Minimum variation to be considered a peak</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bench.hittite.hmct2220.HMCT2220.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Hittite,HMC-T2220'</span></em><a class="headerlink" href="#bench.hittite.hmct2220.HMCT2220.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'N9040B'</span></em><a class="headerlink" href="#bench.keysight.n9040b.N9040B.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Substring returned by IDN query to identify the device</p>
+</dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="bench.hittite.hmct2220.HMCT2220.output_enabled">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output_enabled</span></span><a class="headerlink" href="#bench.hittite.hmct2220.HMCT2220.output_enabled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get output state ON or OFF</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B.measure_sfdr">
+<span class="sig-name descname"><span class="pre">measure_sfdr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">span_hz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_frequency_hz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_step_dBm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bench.keysight.n9040b.N9040B.measure_sfdr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine SFDR in dBc</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>span_hz (int optional): Set span in Hz
+center_frequency_hz (int optional): Set center frequency in Hz
+max_iterations (int optional): Maximum number of iterations to get at least 2 peaks
+level_step_dBm (float optional): Noise steps to decrease threshold until peak count &gt; 1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B.peak_search_marker">
+<span class="sig-name descname"><span class="pre">peak_search_marker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.keysight.n9040b.N9040B.peak_search_marker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set max peak search for a specific marker</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="bench.hittite.hmct2220.HMCT2220.power_level_dBm">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">power_level_dBm</span></span><a class="headerlink" href="#bench.hittite.hmct2220.HMCT2220.power_level_dBm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get power level in dBm</p>
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B.peak_table">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">peak_table</span></span><a class="headerlink" href="#bench.keysight.n9040b.N9040B.peak_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get peak table status</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B.reset">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><a class="headerlink" href="#bench.keysight.n9040b.N9040B.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the instrument</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B.screenshot">
+<span class="sig-name descname"><span class="pre">screenshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'N9040B_sc.png'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.keysight.n9040b.N9040B.screenshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a screenshot on PXA and returns it locally</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>filename (str): filename+path to screenshot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bench.keysight.n9040b.N9040B.span">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">span</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#bench.keysight.n9040b.N9040B.span" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Span in HZ</p>
 </dd></dl>
 
 </dd></dl>
@@ -298,23 +353,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="bench.keysight.e36233a.html">
+          <a class="next-page" href="bench.rs.sma100a.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Keysight E36233A Power Supply</div>
+                <div class="title">Rohde &amp; Schwarz SMA100A Signal Generator</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="bench.keysight.e36233a.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Supported Instruments</div>
+                <div class="title">Keysight E36233A Power Supply</div>
                 
               </div>
             </a>
@@ -348,12 +403,18 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Hittite HMCT2220 Frequency Generator</a><ul>
-<li><a class="reference internal" href="#bench.hittite.hmct2220.HMCT2220"><code class="docutils literal notranslate"><span class="pre">HMCT2220</span></code></a><ul>
-<li><a class="reference internal" href="#bench.hittite.hmct2220.HMCT2220.frequency"><code class="docutils literal notranslate"><span class="pre">HMCT2220.frequency</span></code></a></li>
-<li><a class="reference internal" href="#bench.hittite.hmct2220.HMCT2220.id"><code class="docutils literal notranslate"><span class="pre">HMCT2220.id</span></code></a></li>
-<li><a class="reference internal" href="#bench.hittite.hmct2220.HMCT2220.output_enabled"><code class="docutils literal notranslate"><span class="pre">HMCT2220.output_enabled</span></code></a></li>
-<li><a class="reference internal" href="#bench.hittite.hmct2220.HMCT2220.power_level_dBm"><code class="docutils literal notranslate"><span class="pre">HMCT2220.power_level_dBm</span></code></a></li>
+<li><a class="reference internal" href="#">Keysight N9040B UXA Spectrum Analyzer</a><ul>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B"><code class="docutils literal notranslate"><span class="pre">N9040B</span></code></a><ul>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B.center_frequency"><code class="docutils literal notranslate"><span class="pre">N9040B.center_frequency</span></code></a></li>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B.get_marker_amplitude"><code class="docutils literal notranslate"><span class="pre">N9040B.get_marker_amplitude()</span></code></a></li>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B.get_peak_table"><code class="docutils literal notranslate"><span class="pre">N9040B.get_peak_table()</span></code></a></li>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B.id"><code class="docutils literal notranslate"><span class="pre">N9040B.id</span></code></a></li>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B.measure_sfdr"><code class="docutils literal notranslate"><span class="pre">N9040B.measure_sfdr()</span></code></a></li>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B.peak_search_marker"><code class="docutils literal notranslate"><span class="pre">N9040B.peak_search_marker()</span></code></a></li>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B.peak_table"><code class="docutils literal notranslate"><span class="pre">N9040B.peak_table</span></code></a></li>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B.reset"><code class="docutils literal notranslate"><span class="pre">N9040B.reset</span></code></a></li>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B.screenshot"><code class="docutils literal notranslate"><span class="pre">N9040B.screenshot()</span></code></a></li>
+<li><a class="reference internal" href="#bench.keysight.n9040b.N9040B.span"><code class="docutils literal notranslate"><span class="pre">N9040B.span</span></code></a></li>
 </ul>
 </li>
 </ul>
