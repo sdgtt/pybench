@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Keysight N9040B UXA Spectrum Analyzer" href="bench.keysight.n9040b.html" /><link rel="prev" title="Hittite HMCT2220 Frequency Generator" href="bench.hittite.hmct2220.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Configuration" href="../config_file.html" /><link rel="prev" title="bench.common module" href="../instruments/bench.common.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.05.06 -->
-        <title>Keysight E36233A Power Supply - pybench v0.0.1</title>
+        <title>pytest - pybench v0.0.1</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -212,20 +212,20 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../example_usage.html">Usage Model</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Supported Instruments</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Supported Instruments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="bench.hittite.hmct2220.html">Hittite HMCT2220 Frequency Generator</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Keysight E36233A Power Supply</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bench.keysight.n9040b.html">Keysight N9040B UXA Spectrum Analyzer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bench.rs.sma100a.html">Rohde &amp; Schwarz SMA100A Signal Generator</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../instruments/index.html">Supported Instruments</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Supported Instruments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../instruments/bench.hittite.hmct2220.html">Hittite HMCT2220 Frequency Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instruments/bench.keysight.e36233a.html">Keysight E36233A Power Supply</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instruments/bench.keysight.n9040b.html">Keysight N9040B UXA Spectrum Analyzer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instruments/bench.rs.sma100a.html">Rohde &amp; Schwarz SMA100A Signal Generator</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Frameworks</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../frameworks/pytest.html">pytest</a></li>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">pytest</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Special Functionality</span></p>
 <ul>
@@ -250,7 +250,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/instruments/bench.keysight.e36233a.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/frameworks/pytest.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -270,72 +270,24 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-bench.keysight.e36233a">
-<span id="keysight-e36233a-power-supply"></span><h1>Keysight E36233A Power Supply<a class="headerlink" href="#module-bench.keysight.e36233a" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="bench.keysight.e36233a.E36233A">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bench.keysight.e36233a.</span></span><span class="sig-name descname"><span class="pre">E36233A</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.keysight.e36233a.E36233A" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bench.common.html#bench.common.Common" title="bench.common.Common"><code class="xref py py-class docutils literal notranslate"><span class="pre">Common</span></code></a></p>
-<p>Keysight E36233A Power Supply</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bench.keysight.e36233a.E36233A.channels">
-<span class="sig-name descname"><span class="pre">channels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bench.keysight.e36233a.E36233A.channels" title="Permalink to this definition">¶</a></dt>
-<dd><p>List all channels</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bench.keysight.e36233a.E36233A.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'E36233A'</span></em><a class="headerlink" href="#bench.keysight.e36233a.E36233A.id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Substring returned by IDN query to identify the device</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bench.keysight.e36233a.E36233A.num_channels">
-<span class="sig-name descname"><span class="pre">num_channels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#bench.keysight.e36233a.E36233A.num_channels" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of channels on the device</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="bench.keysight.e36233a.E36233A.reset">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><a class="headerlink" href="#bench.keysight.e36233a.E36233A.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reset the instrument</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bench.keysight.e36233a.channel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bench.keysight.e36233a.</span></span><span class="sig-name descname"><span class="pre">channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bench.keysight.e36233a.channel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Individual output channel on the E36233A power supply</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="bench.keysight.e36233a.channel.current">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current</span></span><a class="headerlink" href="#bench.keysight.e36233a.channel.current" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get or set the current of the channel</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="bench.keysight.e36233a.channel.operational_mode">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">operational_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#bench.keysight.e36233a.channel.operational_mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get or set the operational mode of the channel. Options are:
-OFF: Channel is off
-SER: Channel is in series mode
-PAR: Channel is in parallel mode</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="bench.keysight.e36233a.channel.output_enabled">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output_enabled</span></span><a class="headerlink" href="#bench.keysight.e36233a.channel.output_enabled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enable output of channel (True) or disable output (False)</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="bench.keysight.e36233a.channel.voltage">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">voltage</span></span><a class="headerlink" href="#bench.keysight.e36233a.channel.voltage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+          <section id="pytest">
+<h1>pytest<a class="headerlink" href="#pytest" title="Permalink to this heading">¶</a></h1>
+<p>pybench can be integrated with pytest by either directly using instrument classes or by leveraging the <code class="docutils literal notranslate"><span class="pre">pytest</span></code> fixtures provided by pybench. The fixtures are designed to help manage the lifecycle of the instrument and the data acquisition process. This also includes requiring instruments for tests, or making them interchangeable based on what a user has physical access to.</p>
+<section id="cli-options">
+<h2>CLI options<a class="headerlink" href="#cli-options" title="Permalink to this heading">¶</a></h2>
+<p>The following CLI options are available for use with pytest:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--confifile</span></code>: Path to the configuration file to use for the test run. If not provided, the default configuration file will be used. This is the configuration that defines which instruments are available and their addresses.</p></li>
+</ul>
+</section>
+<section id="available-fixtures">
+<h2>Available fixtures<a class="headerlink" href="#available-fixtures" title="Permalink to this heading">¶</a></h2>
+<p>The following fixtures are available for use in your tests:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">instrument_addresses</span></code>: A fixture that returns a list of all available instruments of those specified in the configuration file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">instrument_address_session</span></code>: A fixture that returns a session-scoped instrument address. This is useful for tests that require an instrument to be available for the duration of all tests.</p></li>
+</ul>
+</section>
 </section>
 
         </article>
@@ -343,23 +295,23 @@ PAR: Channel is in parallel mode</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="bench.keysight.n9040b.html">
+          <a class="next-page" href="../config_file.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Keysight N9040B UXA Spectrum Analyzer</div>
+                <div class="title">Configuration</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="bench.hittite.hmct2220.html">
+          <a class="prev-page" href="../instruments/bench.common.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Hittite HMCT2220 Frequency Generator</div>
+                <div class="title">bench.common module</div>
                 
               </div>
             </a>
@@ -393,21 +345,9 @@ PAR: Channel is in parallel mode</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Keysight E36233A Power Supply</a><ul>
-<li><a class="reference internal" href="#bench.keysight.e36233a.E36233A"><code class="docutils literal notranslate"><span class="pre">E36233A</span></code></a><ul>
-<li><a class="reference internal" href="#bench.keysight.e36233a.E36233A.channels"><code class="docutils literal notranslate"><span class="pre">E36233A.channels()</span></code></a></li>
-<li><a class="reference internal" href="#bench.keysight.e36233a.E36233A.id"><code class="docutils literal notranslate"><span class="pre">E36233A.id</span></code></a></li>
-<li><a class="reference internal" href="#bench.keysight.e36233a.E36233A.num_channels"><code class="docutils literal notranslate"><span class="pre">E36233A.num_channels</span></code></a></li>
-<li><a class="reference internal" href="#bench.keysight.e36233a.E36233A.reset"><code class="docutils literal notranslate"><span class="pre">E36233A.reset</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#bench.keysight.e36233a.channel"><code class="docutils literal notranslate"><span class="pre">channel</span></code></a><ul>
-<li><a class="reference internal" href="#bench.keysight.e36233a.channel.current"><code class="docutils literal notranslate"><span class="pre">channel.current</span></code></a></li>
-<li><a class="reference internal" href="#bench.keysight.e36233a.channel.operational_mode"><code class="docutils literal notranslate"><span class="pre">channel.operational_mode</span></code></a></li>
-<li><a class="reference internal" href="#bench.keysight.e36233a.channel.output_enabled"><code class="docutils literal notranslate"><span class="pre">channel.output_enabled</span></code></a></li>
-<li><a class="reference internal" href="#bench.keysight.e36233a.channel.voltage"><code class="docutils literal notranslate"><span class="pre">channel.voltage</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">pytest</a><ul>
+<li><a class="reference internal" href="#cli-options">CLI options</a></li>
+<li><a class="reference internal" href="#available-fixtures">Available fixtures</a></li>
 </ul>
 </li>
 </ul>

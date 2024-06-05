@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Supported Instruments" href="instruments/index.html" /><link rel="prev" title="pybench: Lab Bench Instrument Controls in Python" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Usage Model" href="example_usage.html" /><link rel="prev" title="pybench: Lab Bench Instrument Controls in Python" href="index.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.05.06 -->
-        <title>Dependencies - pybench v0.0.1</title>
+        <title>Installation - pybench v0.0.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -211,9 +211,10 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+  <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Dependencies</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_usage.html">Usage Model</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="instruments/index.html">Supported Instruments</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Supported Instruments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="instruments/bench.hittite.hmct2220.html">Hittite HMCT2220 Frequency Generator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="instruments/bench.keysight.e36233a.html">Keysight E36233A Power Supply</a></li>
@@ -221,6 +222,14 @@
 <li class="toctree-l2"><a class="reference internal" href="instruments/bench.rs.sma100a.html">Rohde &amp; Schwarz SMA100A Signal Generator</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Frameworks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="frameworks/pytest.html">pytest</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Special Functionality</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html">Configuration</a></li>
 </ul>
 
 </div>
@@ -261,8 +270,16 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="dependencies">
-<h1>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading">¶</a></h1>
+          <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
+<p>The module is compatible with Python 3.6 and above. It is recommended to use a virtual environment to install the module. To install the module, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<span class="o">(</span>Windows<span class="o">)</span><span class="w"> </span>venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+<span class="o">(</span>Linux<span class="o">)</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>venv/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>pybench
+</pre></div>
+</div>
+<p>The majority of the dependencies are installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code> when installing the module or by using the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file when using the source repo. However, there are some dependencies that need to be installed manually for certain instruments to work or improve their functionality.</p>
 <section id="keysight">
 <h2>Keysight<a class="headerlink" href="#keysight" title="Permalink to this heading">¶</a></h2>
 <p>Its recommended you install the IO Libraries and Drivers to communicate with instruments.</p>
@@ -277,12 +294,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="instruments/index.html">
+          <a class="next-page" href="example_usage.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Supported Instruments</div>
+                <div class="title">Usage Model</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -327,7 +344,7 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Dependencies</a><ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#keysight">Keysight</a></li>
 </ul>
 </li>
