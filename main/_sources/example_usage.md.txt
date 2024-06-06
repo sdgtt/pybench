@@ -49,4 +49,3 @@ siggen.level = -10
 # Enable the output
 siggen.output_enable = True
 ```
-

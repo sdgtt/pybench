@@ -8,7 +8,7 @@ pybench: Lab Bench Instrument Controls in Python
 
 pybench is a Python package for controlling lab bench instruments. It is designed to be easy to use and to provide a consistent interface to a wide variety of instruments. pybench primarily uses the VISA standard for instrument communication, but supports other communication methods as well.
 
-The module is designed to also support testing frameworks, such as pytest, and to support modern CI driven development and testing. 
+The module is designed to also support testing frameworks, such as pytest, and to support modern CI driven development and testing.
 
 .. toctree::
    :maxdepth: 1
