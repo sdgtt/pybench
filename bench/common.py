@@ -1,5 +1,6 @@
 import logging
 import os
+import time
 
 import pyvisa
 import yaml
@@ -20,6 +21,8 @@ def check_connected(func):
 class instrument:
     """Shim layer between pyvisa instrument class and pybench instruments"""
 
+    _retries = 5
+
     def __init__(self, rm, address, auto_reconnect=True, use_py_resource_manager=True):
         self.rm = rm
         self.address = address
@@ -32,13 +35,21 @@ class instrument:
             raise error
 
         print("Reconnecting")
-        if self.use_py_resource_manager:
-            self.rm = pyvisa.ResourceManager("@py")
-        else:
-            self.rm = pyvisa.ResourceManager()
-        self.instr = self.rm.open_resource(self.address)
-        self.instr.timeout = 15000
-        self.instr.write("*CLS")
+        for retry in self._retries:
+            try:
+                if self.use_py_resource_manager:
+                    self.rm = pyvisa.ResourceManager("@py")
+                else:
+                    self.rm = pyvisa.ResourceManager()
+                self.instr = self.rm.open_resource(self.address)
+                self.instr.timeout = 15000
+                self.instr.write("*CLS")
+                break
+            except Exception as ex:
+                print(f"Reconnect failed. Retrying {retry+1} of {self._retries}")
+                time.sleep(2)
+                if retry == (self._retries - 1):
+                    raise ex
 
     def query(self, cmd):
         try:
@@ -119,6 +130,8 @@ class Common:
 
     _teardown = False
 
+    _retries = 5
+
     def __getattribute__(self, name):
         if name == "_instr":
             td = object.__getattribute__(
@@ -193,16 +206,25 @@ class Common:
             self._find_device()
         else:
             common_log.info(f"Using address {self.address}")
-            if self.use_py_resource_manager:
-                self._rm = pyvisa.ResourceManager("@py")
-            else:
-                self._rm = pyvisa.ResourceManager()
-            self._instr = instrument(
-                self._rm,
-                self.address,
-                self.auto_reconnect,
-                self.use_py_resource_manager,
-            )
+            for retry in range(self._retries):
+                try:
+                    if self.use_py_resource_manager:
+                        self._rm = pyvisa.ResourceManager("@py")
+                    else:
+                        self._rm = pyvisa.ResourceManager()
+                    self._instr = instrument(
+                        self._rm,
+                        self.address,
+                        self.auto_reconnect,
+                        self.use_py_resource_manager,
+                    )
+                    break
+                except Exception as ex:
+                    common_log.warning(ex)
+                    common_log.info(f"Retrying {retry+1}")
+                    time.sleep(2)
+                    if retry == (self._retries - 1):
+                        raise ex
             self._connected = True
             self._instr.timeout = 15000
             self._instr.write("*CLS")
