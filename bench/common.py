@@ -35,7 +35,7 @@ class instrument:
             raise error
 
         print("Reconnecting")
-        for retry in self._retries:
+        for retry in range(self._retries):
             try:
                 if self.use_py_resource_manager:
                     self.rm = pyvisa.ResourceManager("@py")
