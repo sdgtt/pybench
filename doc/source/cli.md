@@ -7,11 +7,11 @@ pip install pybench[cli]
 ```
 
 There are two command line tools available:
-- [`pybenchiio`](#pybenchiio) - A command line tool for interfacing with libiio devices.
-- [`pybench`](#pybench) - A command line tool for querying VISA based instruments.
+- [`pybenchiio`](#pybenchiiocli) - A command line tool for interfacing with libiio devices.
+- [`pybench`](#pybenchcli) - A command line tool for querying VISA based instruments.
 
 
-(#pybenchiio)=
+(pybenchiiocli)=
 ```{eval-rst}
 .. click:: bench.cli.iiotools:cli
    :prog: pybenchiio
@@ -22,7 +22,7 @@ There are two command line tools available:
 
 ---
 
-(#pybench)=
+(pybenchcli)=
 ```{eval-rst}
 .. click:: bench.cli.visatools:cli
    :prog: pybench
