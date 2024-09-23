@@ -17,6 +17,7 @@ The module is designed to also support testing frameworks, such as pytest, and t
    install.md
    example_usage
    instruments/index
+   cli
 
 
 .. toctree::

@@ -5,3 +5,4 @@ sphinx-favicon
 sphinxcontrib-mermaid
 sphinx-simplepdf
 pillow
+sphinx-click

@@ -34,6 +34,7 @@ extensions = [
     "myst_parser",
     "sphinxcontrib.mermaid",
     "sphinx_remove_toctrees",
+    "sphinx_click",
 ]
 
 templates_path = ["_templates"]
