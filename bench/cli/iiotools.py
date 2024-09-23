@@ -1,6 +1,11 @@
 import click
 
-import iio
+try:
+    import iio
+except ImportError:
+    click.echo("IIO not found, please install pylibiio")
+    exit(1)
+
 
 @click.group()
 @click.option("--uri", "-u", help="URI of target device/board")
@@ -16,15 +21,12 @@ def cli(ctx, uri, device, complex):
 
 
 @cli.command()
-@click.option("--attribute", "-a", help="Attribute to access", required=True)
-@click.pass_context
-def get(ctx, attribute):
-    """Get an attribute from a device"""
-    click.echo(f"Get {attribute} from {ctx.obj['uri']}")
-
-@cli.command()
-@click.option("--frequency", "-f", help="Set the frequency of the DDS in Hz", required=True)
-@click.option("--amplitude", "-a", help="Set the amplitude of the DDS in 0->1", required=True)
+@click.option(
+    "--frequency", "-f", help="Set the frequency of the DDS in Hz", required=True
+)
+@click.option(
+    "--amplitude", "-a", help="Set the amplitude of the DDS in 0->1", required=True
+)
 @click.option("--channel", "-c", help="Set the channel of the DDS", required=True)
 @click.pass_context
 def set_dds(ctx, frequency, amplitude, channel):
@@ -52,7 +54,7 @@ def set_dds(ctx, frequency, amplitude, channel):
         ch = int(channel) * 4
         channels = [ch, ch + 1]
     else:
-        ch = int(channel)*2
+        ch = int(channel) * 2
         channels = [ch, ch + 1]
 
     for i, ch in enumerate(channels):
@@ -70,6 +72,3 @@ def set_dds(ctx, frequency, amplitude, channel):
                 chan.attrs["phase"].value = "0"
 
     click.echo(f"Set DDS of channel {channel} to {frequency}Hz and {amplitude} scale")
-    
-
-

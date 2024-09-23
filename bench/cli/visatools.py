@@ -9,6 +9,7 @@ def cli(ctx, uri):
     ctx.obj = {}
     ctx.obj["uri"] = uri
 
+
 @cli.command()
 @click.pass_context
 def list(ctx, attribute):

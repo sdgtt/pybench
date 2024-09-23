@@ -1,6 +1,6 @@
 # Command Line Interface Tools
 
-The following command line tools are available in the when the optional `cli` dependency is installed. 
+The following command line tools are available in the when the optional `cli` dependency is installed.
 
 ```bash
 pip install pybench[cli]
