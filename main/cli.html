@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="install.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="pytest" href="frameworks/pytest.html" /><link rel="prev" title="bench.common module" href="instruments/bench.common.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.08.06 -->
-        <title>pybench v0.0.1</title>
+        <title>Command Line Interface Tools - pybench v0.0.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">pybench v0.0.1</div></a>
+      <a href="index.html"><div class="brand">pybench v0.0.1</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -178,7 +178,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -187,7 +187,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
   <span class="sidebar-brand-text">pybench v0.0.1</span>
@@ -199,7 +199,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_usage.html">Usage Model</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="instruments/index.html">Supported Instruments</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Supported Instruments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -209,7 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="instruments/bench.rs.sma100a.html">Rohde &amp; Schwarz SMA100A Signal Generator</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface Tools</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Command Line Interface Tools</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Frameworks</span></p>
 <ul>
@@ -238,7 +238,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/index.rst.txt" title="View this page">
+  <a class="muted-link" href="_sources/cli.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -252,49 +252,90 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="pybench-lab-bench-instrument-controls-in-python">
-<h1>pybench: Lab Bench Instrument Controls in Python<a class="headerlink" href="#pybench-lab-bench-instrument-controls-in-python" title="Permalink to this heading">¶</a></h1>
-<p>pybench is a Python package for controlling lab bench instruments. It is designed to be easy to use and to provide a consistent interface to a wide variety of instruments. pybench primarily uses the VISA standard for instrument communication, but supports other communication methods as well.</p>
-<p>The module is designed to also support testing frameworks, such as pytest, and to support modern CI driven development and testing.</p>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_usage.html">Usage Model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="instruments/index.html">Supported Instruments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface Tools</a></li>
-</ul>
+          <section id="command-line-interface-tools">
+<h1>Command Line Interface Tools<a class="headerlink" href="#command-line-interface-tools" title="Permalink to this heading">¶</a></h1>
+<p>The following command line tools are available in the when the optional <code class="docutils literal notranslate"><span class="pre">cli</span></code> dependency is installed.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pybench<span class="o">[</span>cli<span class="o">]</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Frameworks</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="frameworks/pytest.html">pytest</a></li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Special Functionality</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="config_file.html">Configuration</a></li>
-</ul>
-</div>
-</section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<p>There are two command line tools available:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><p><a class="reference internal" href="#pybenchiiocli"><code class="docutils literal notranslate"><span class="pre">pybenchiio</span></code></a> - A command line tool for interfacing with libiio devices.</p></li>
+<li><p><a class="reference internal" href="#pybenchcli"><code class="docutils literal notranslate"><span class="pre">pybench</span></code></a> - A command line tool for querying VISA based instruments.</p></li>
 </ul>
+<section id="pybenchiio">
+<span id="pybenchiiocli"></span><h2>pybenchiio<a class="headerlink" href="#pybenchiio" title="Permalink to this heading">¶</a></h2>
+<p>Command line interface for pybench IIO based boards</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-u">
+<span id="cmdoption-pybenchiio-uri"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--uri</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;uri&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-u" title="Permalink to this definition">¶</a></dt>
+<dd><p>URI of target device/board</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-d">
+<span id="cmdoption-pybenchiio-device"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--device</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;device&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Device driver to use</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-x">
+<span id="cmdoption-pybenchiio-complex"></span><span class="sig-name descname"><span class="pre">-x</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--complex</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-pybenchiio-x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use complex mode</p>
+</dd></dl>
+
+<section id="pybenchiio-set-dds">
+<h3>set-dds<a class="headerlink" href="#pybenchiio-set-dds" title="Permalink to this heading">¶</a></h3>
+<p>Configure DDS</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>set-dds<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-set-dds-f">
+<span id="cmdoption-pybenchiio-set-dds-frequency"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--frequency</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;frequency&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-set-dds-f" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Set the frequency of the DDS in Hz</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-set-dds-a">
+<span id="cmdoption-pybenchiio-set-dds-amplitude"></span><span class="sig-name descname"><span class="pre">-a</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--amplitude</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;amplitude&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-set-dds-a" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Set the amplitude of the DDS in 0-&gt;1</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-set-dds-c">
+<span id="cmdoption-pybenchiio-set-dds-channel"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--channel</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;channel&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-set-dds-c" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Set the channel of the DDS</p>
+</dd></dl>
+
 </section>
-<section id="disclaimer">
-<h1>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this heading">¶</a></h1>
-<p>This package is not endorsed by or affiliated with any of the instrument manufacturers. It is a community driven project and is not officially supported by any of the instrument manufacturers.</p>
+</section>
+<hr class="docutils" />
+<section id="pybench">
+<span id="pybenchcli"></span><h2>pybench<a class="headerlink" href="#pybench" title="Permalink to this heading">¶</a></h2>
+<p>Command line interface for pybench VISA based instruments</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybench<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<section id="pybench-list">
+<h3>list<a class="headerlink" href="#pybench-list" title="Permalink to this heading">¶</a></h3>
+<p>List available devices</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybench<span class="w"> </span>list<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
         </article>
@@ -302,16 +343,26 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="install.html">
+          <a class="next-page" href="frameworks/pytest.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Installation</div>
+                <div class="title">pytest</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          
+          <a class="prev-page" href="instruments/bench.common.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">bench.common module</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -330,8 +381,34 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Command Line Interface Tools</a><ul>
+<li><a class="reference internal" href="#pybenchiio">pybenchiio</a><ul>
+<li><a class="reference internal" href="#pybenchiio-set-dds">set-dds</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pybench">pybench</a><ul>
+<li><a class="reference internal" href="#pybench-list">list</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
