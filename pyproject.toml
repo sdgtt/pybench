@@ -45,10 +45,12 @@ include = ["bench*"]
 exclude = ["tests*"]
 namespaces = true
 
-# [project.optional-dependencies]
-# jesd = [
-#     "paramiko"
-# ]
+[project.scripts]
+pybenchiio = "bench.cli.iiotools:cli"
+pybench = "bench.cli.visatools:cli"
+
+[project.optional-dependencies]
+cli = ["click", "pylibiio>=0.23.1"]
 
 [project.entry-points.pytest11]
 pybench = "bench.plugin"

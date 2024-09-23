@@ -4,3 +4,6 @@ sphinxcontrib-mermaid
 pillow
 furo
 sphinx-remove-toctrees
+sphinx-favicon
+sphinx-simplepdf
+sphinx-click
