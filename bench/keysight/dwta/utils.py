@@ -2,9 +2,19 @@
 
 from typing import List, Union
 import numpy as np
+import subprocess
+import os
 
 import adi
 
+
+def start_dac_server(port: int = 12345) -> None:
+    """Start the DAC server.
+
+    Args:
+        port: The port to start the server on. Default is 1234.
+    """
+    loc = os.path.dirname(os.path.realpath(__file__))
 
 def data_to_iq_datafile(
     device, data: np.ndarray, filename: str, device_check: bool = True

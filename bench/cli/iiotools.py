@@ -1,4 +1,5 @@
 import click
+import requests
 from bench.keysight.dwta.data_capture import capture_iq_datafile
 
 try:
@@ -103,3 +104,79 @@ def capture_Data(ctx, filename, device, channel, samples, props):
     capture_iq_datafile(
         filename, device, channel, samples, ctx.obj["uri"], **dict(props)
     )
+
+
+@cli.command()
+@click.option("--filename", "-f", help="Name of file to write data to", required=True)
+@click.option("--device", "-d", help="Name of device to configure", required=True)
+@click.option("--channel", "-c", help="Channel to capture data from", required=True)
+@click.option(
+    "--server-ip",
+    "-s",
+    help="IP address of the server",
+    required=False,
+    default="localhost",
+)
+@click.option(
+    "--server-port", "-p", help="Port of the server", required=False, default=8000
+)
+@click.argument("props", nargs=-1)
+@click.pass_context
+def transmit_data(ctx, filename, device, channel, server_ip, server_port, props):
+
+    # Checks
+    channel = int(channel)
+
+    # Parse properties
+    # if props:
+    #     oprops = {}
+    #     for prop in props:
+    #         if "=" not in prop:
+    #             raise ValueError(
+    #                 f"Invalid property: {prop}. Must be in the form key=value"
+    #             )
+    #         k, v = prop.split("=")
+    #         if v.isdigit():
+    #             v = int(v)
+    #         oprops[k] = v
+    #     props = oprops
+
+    # transmit_iq_datafile(
+    #     filename, device, channel, ctx.obj["uri"], **dict(props)
+    # )
+
+    import requests
+    import os
+
+    # Send post request to localhost
+    url = f"http://{server_ip}:{server_port}/writebuffer"
+    json_data = {
+        "uri": ctx.obj["uri"],
+        "device": device,
+        "channel": channel,
+        "data_filename": filename,
+        "do_scaling": False,
+        "cycle": True,
+        "data_complex": True,
+        "properties": props,
+    }
+    r = requests.post(url, json=json_data)
+    assert r.status_code == 200, f"Failed to send data: {r.json()}"
+
+
+@cli.command()
+@click.option(
+    "--server-ip",
+    "-s",
+    help="IP address of the server",
+    required=False,
+    default="localhost",
+)
+@click.option(
+    "--server-port", "-p", help="Port of the server", required=False, default=8000
+)
+def transmit_data_clear(server_ip, server_port):
+
+    url = f"http://{server_ip}:{server_port}/clearbuffer"
+    r = requests.post(url)
+    assert r.status_code == 200, f"Failed to clear buffer: {r.json()}"
