@@ -76,10 +76,11 @@ def set_dds(ctx, frequency, amplitude, device, channel, complex):
 @cli.command()
 @click.option("--filename", "-f", help="Name of file to write data to", required=True)
 @click.option("--device", "-d", help="Name of device to configure", required=True)
+@click.option("--channel", "-c", help="Channel to capture data from", required=True)
 @click.option("--samples", "-s", help="Number of samples to capture", required=True)
 @click.argument("props", nargs=-1)
 @click.pass_context
-def capture_Data(ctx, filename, device, samples, props):
+def capture_Data(ctx, filename, device, channel, samples, props):
 
     # Checks
     samples = int(samples)
@@ -98,4 +99,6 @@ def capture_Data(ctx, filename, device, samples, props):
             oprops[k] = v
         props = oprops
 
-    capture_iq_datafile(filename, device, samples, ctx.obj["uri"], **dict(props))
+    capture_iq_datafile(
+        filename, device, channel, samples, ctx.obj["uri"], **dict(props)
+    )

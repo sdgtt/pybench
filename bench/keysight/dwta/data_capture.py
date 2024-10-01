@@ -7,13 +7,14 @@ from ..dwta import supported_devices
 
 
 def capture_iq_datafile(
-    filename: str, device_name: str, samples: int, uri: str, **kwargs
+    filename: str, device_name: str, channel: int, samples: int, uri: str, **kwargs
 ) -> None:
     """Capture IQ data to a file.
 
     Args:
         filename: The filename to write to.
         device_name: The device name.
+        channel: The channel to capture data from.
         samples: The number of samples to capture.
         uri: The URI of the device.
         *args: Additional arguments.
@@ -38,6 +39,7 @@ def capture_iq_datafile(
         setattr(device, key, value)
 
     # Capture data
+    device.rx_enabled_channels = [channel]
     device.rx_buffer_size = samples
     data = device.rx()
 
