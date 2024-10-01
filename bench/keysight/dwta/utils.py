@@ -36,6 +36,11 @@ def data_to_iq_datafile(
 
     if type(device) in [adi.Pluto]:
         center_frequency = int(device.rx_lo)  # FIXME
+    elif type(device) in [adi.ad9081, adi.ad9084]:
+        channel = device.rx_enabled_channels[0]
+        f1 = device.rx_channel_nco_frequencies
+        f2 = device.rx_main_nco_frequencies
+        center_frequency = f1[channel] + f2[channel]
     else:
         raise NotImplementedError("Center frequency not implemented for this device")
 

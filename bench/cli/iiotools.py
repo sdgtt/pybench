@@ -84,6 +84,7 @@ def capture_Data(ctx, filename, device, channel, samples, props):
 
     # Checks
     samples = int(samples)
+    channel = int(channel)
 
     # Parse properties
     if props:
