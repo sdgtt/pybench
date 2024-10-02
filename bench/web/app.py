@@ -1,18 +1,16 @@
 """Web backend for the bench"""
 
 import os
-from typing import List, Union
 import threading
-
-import uvicorn
-from fastapi import FastAPI, Request, Response
-from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
-
-from pydantic import BaseModel
+from typing import List, Union
 
 import adi
 import numpy as np
+import uvicorn
+from fastapi import FastAPI, Request, Response
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
 
 # Import supported_devices from the data_capture module
 from bench.keysight.dwta.data_capture import supported_devices
@@ -98,6 +96,12 @@ async def writebuffer(bufferwrite: BufferWrite):
             i_list.append(int(i))
             q_list.append(int(q))
         complex_data = np.array(i_list) + 1j * np.array(q_list)
+
+    if type(device) in [adi.Pluto]:
+        device.sample_rate = sample_rate
+        device.tx_lo = center_frequency
+    elif type(device) in [adi.ad9081, adi.ad9084]:
+        assert device.tx_sample_rate == sample_rate, "Sample rate mismatch"
 
     # Write data to buffer
     device.tx_cyclic_buffer = bufferwrite.cycle

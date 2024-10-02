@@ -1,6 +1,9 @@
-import requests
+# flake8: noqa
 import os
+import time
+
 import numpy as np
+import requests
 
 # Generate some data
 fs = int(1e6)
@@ -23,14 +26,14 @@ with open(filename, "w") as f:
 
 # Send post request to localhost
 url = "http://localhost:8000/writebuffer"
-    # uri: str
-    # device: str
-    # channel: int
-    # data_filename: str
-    # do_scaling: bool
-    # cycle: bool
-    # data_complex: bool
-    # properties: List[str]
+# uri: str
+# device: str
+# channel: int
+# data_filename: str
+# do_scaling: bool
+# cycle: bool
+# data_complex: bool
+# properties: List[str]
 
 file_location = os.path.dirname(os.path.realpath(__file__))
 
@@ -48,7 +51,6 @@ r = requests.post(url, json=data)
 print(f"Status: {r.status_code}")
 print(r.json())
 
-import time
 for _ in range(10):
     print(".", end="")
     time.sleep(1)

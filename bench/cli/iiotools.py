@@ -1,9 +1,10 @@
-import subprocess
 import os
+import subprocess
 import time
 
 import click
 import requests
+
 from bench.keysight.dwta.data_capture import capture_iq_datafile
 
 try:
@@ -89,9 +90,7 @@ def set_dds(ctx, frequency, amplitude, device, channel, complex):
 )
 @click.option("--samples", "-s", help="Number of samples to capture", required=True)
 @click.argument(
-    "props",
-    nargs=-1,
-    required=False,
+    "props", nargs=-1, required=False,
 )
 @click.pass_context
 def capture_data(ctx, filename, device, channel, samples, props):
@@ -176,8 +175,9 @@ def transmit_data(ctx, filename, device, channel, server_ip, server_port, props)
     #     filename, device, channel, ctx.obj["uri"], **dict(props)
     # )
 
-    import requests
     import os
+
+    import requests
 
     # Send post request to localhost
     url = f"http://{server_ip}:{server_port}/writebuffer"
@@ -228,8 +228,8 @@ def transmit_data_clear(server_ip, server_port):
 def start_server(host, port):
 
     # Start the server as a subprocess
-    import subprocess
     import os
+    import subprocess
 
     loc = os.path.dirname(os.path.realpath(__file__))
     web_app = os.path.join(loc, "..", "web", "app.py")

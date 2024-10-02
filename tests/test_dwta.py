@@ -1,8 +1,10 @@
 """Test the DWTA class."""
 
 import os
-import pytest
+
 import adi
+import pytest
+
 import bench
 
 hardware = ["pluto", "pluto_rev_c"]
@@ -15,13 +17,11 @@ ref_data_folder = os.path.join(loc, "ref_data")
 def test_iq_datafile_gen(iio_uri, tmpdir):
     """Test the IQ datafile generation."""
     dev = adi.Pluto(iio_uri)
-    dev.rx_buffer_size = 2**10
+    dev.rx_buffer_size = 2 ** 10
     data = dev.rx()
 
     filename = tmpdir.join("test_iq.csv")
-    d = bench.keysight.dwta.utils.data_to_iq_datafile(
-        dev, data, tmpdir.join("test_iq.csv")
-    )
+    bench.keysight.dwta.utils.data_to_iq_datafile(dev, data, tmpdir.join("test_iq.csv"))
 
     # Check structure
     assert os.path.exists(filename)

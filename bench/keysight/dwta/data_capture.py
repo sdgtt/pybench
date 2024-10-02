@@ -2,8 +2,8 @@
 
 import adi
 
-from .utils import data_to_iq_datafile
 from ..dwta import supported_devices
+from .utils import data_to_iq_datafile
 
 
 def capture_iq_datafile(

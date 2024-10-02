@@ -4,6 +4,7 @@ import time
 from typing import Union
 
 import pyvisa
+
 from bench.common import Common
 
 
