@@ -12,7 +12,6 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
-# Import supported_devices from the data_capture module
 from bench.keysight.dwta.data_capture import supported_devices
 
 
@@ -48,9 +47,6 @@ class BufferWrite(BaseModel):
 
 app = FastAPI()
 
-file_location = os.path.dirname(os.path.realpath(__file__))
-templates = Jinja2Templates(directory=os.path.join(file_location, "templates"))
-
 
 @app.post("/clearbuffer")
 async def clearbuffer():
@@ -61,9 +57,6 @@ async def clearbuffer():
 
 @app.post("/writebuffer")
 async def writebuffer(bufferwrite: BufferWrite):
-    # print(bufferwrite)
-    # print(bufferwrite.channels)
-
     # Checks
     if bufferwrite.device not in supported_devices:
         return {
@@ -111,13 +104,6 @@ async def writebuffer(bufferwrite: BufferWrite):
     write_state("device", device)
 
     return {"status": "ok"}
-
-
-@app.get("/help/{id}", response_class=HTMLResponse)
-async def help(request: Request, id: str):
-    return templates.TemplateResponse(
-        request=request, name="help.html", context={"id": id}
-    )
 
 
 if __name__ == "__main__":
