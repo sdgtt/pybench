@@ -1,4 +1,5 @@
 """Web backend for the bench"""
+
 import os
 from typing import List, Union
 import threading
@@ -16,20 +17,25 @@ import numpy as np
 # Import supported_devices from the data_capture module
 from bench.keysight.dwta.data_capture import supported_devices
 
+
 class SharedState:
     def __init__(self):
         self.buffer = None
         self.device = None
 
+
 state = SharedState()
+
 
 def read_state(prop):
     global state
     return getattr(state, prop)
 
+
 def write_state(prop, value):
     global state
     setattr(state, prop, value)
+
 
 class BufferWrite(BaseModel):
     uri: str
@@ -47,20 +53,13 @@ app = FastAPI()
 file_location = os.path.dirname(os.path.realpath(__file__))
 templates = Jinja2Templates(directory=os.path.join(file_location, "templates"))
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
 
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-@app.post('/clearbuffer')
+@app.post("/clearbuffer")
 async def clearbuffer():
     write_state("buffer", None)
     write_state("device", None)
     return {"status": "ok"}
+
 
 @app.post("/writebuffer")
 async def writebuffer(bufferwrite: BufferWrite):
@@ -69,7 +68,9 @@ async def writebuffer(bufferwrite: BufferWrite):
 
     # Checks
     if bufferwrite.device not in supported_devices:
-        return {"status": f"Device not supported: {bufferwrite.device}. Supported devices: {supported_devices}"}
+        return {
+            "status": f"Device not supported: {bufferwrite.device}. Supported devices: {supported_devices}"
+        }
 
     # Create device
     device = getattr(adi, bufferwrite.device)(bufferwrite.uri)
@@ -105,12 +106,14 @@ async def writebuffer(bufferwrite: BufferWrite):
     # Save device state
     write_state("device", device)
 
-
     return {"status": "ok"}
+
 
 @app.get("/help/{id}", response_class=HTMLResponse)
 async def help(request: Request, id: str):
-    return templates.TemplateResponse(request=request, name="help.html", context={"id": id})
+    return templates.TemplateResponse(
+        request=request, name="help.html", context={"id": id}
+    )
 
 
 if __name__ == "__main__":

@@ -50,7 +50,7 @@ pybenchiio = "bench.cli.iiotools:cli"
 pybench = "bench.cli.visatools:cli"
 
 [project.optional-dependencies]
-cli = ["click", "pyadi-iio>=0.0.17"]
+cli = ["click", "pyadi-iio>=0.0.17", "requests"]
 web = ["fastapi[standard]", "uvicorn", "pydantic", "jinja2", "starlette"]
 
 [project.entry-points.pytest11]
