@@ -269,8 +269,15 @@
 <li><p><a class="reference internal" href="#pybenchiiocli"><code class="docutils literal notranslate"><span class="pre">pybenchiio</span></code></a> - A command line tool for interfacing with libiio devices.</p></li>
 <li><p><a class="reference internal" href="#pybenchcli"><code class="docutils literal notranslate"><span class="pre">pybench</span></code></a> - A command line tool for querying VISA based instruments.</p></li>
 </ul>
+<section id="keysight-dmx">
+<h2>Keysight DMX<a class="headerlink" href="#keysight-dmx" title="Permalink to this heading">¶</a></h2>
+<p>One of the main use cases for the CLI pybench tools is to support the Keysight Device Manager eXpert (DMX) software. The DMX software is a tool for managing and configuring Keysight instruments. The <code class="docutils literal notranslate"><span class="pre">pybench</span></code> CLI tool provides a way for the DMX software to communicate with pybench instruments and devices.</p>
+<p>Since the DMX software uses single commands to perform data capture and data generation this required additional infrastructure specifically for IIO based systems. IIO based systems do not maintain persistent buffer when leveraging custom data vectors through DMA channels. Essentially, when the contexts are closed the buffers clear and the IIO based system will revert back to the DDS data generation state. To solve this problem a backend server was implemented to maintain these buffers that is controlled by the <code class="docutils literal notranslate"><span class="pre">pybenchiio</span></code> CLI tool. See the <a class="reference internal" href="#pybenchiiocli">pybenchiio</a> section for more information.</p>
+</section>
+<section id="reference-apis">
+<h2>Reference APIs<a class="headerlink" href="#reference-apis" title="Permalink to this heading">¶</a></h2>
 <section id="pybenchiio">
-<span id="pybenchiiocli"></span><h2>pybenchiio<a class="headerlink" href="#pybenchiio" title="Permalink to this heading">¶</a></h2>
+<span id="pybenchiiocli"></span><h3>pybenchiio<a class="headerlink" href="#pybenchiio" title="Permalink to this heading">¶</a></h3>
 <p>Command line interface for pybench IIO based boards</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
 </pre></div>
@@ -282,20 +289,53 @@
 <dd><p>URI of target device/board</p>
 </dd></dl>
 
+<section id="pybenchiio-capture-data">
+<h4>capture-data<a class="headerlink" href="#pybenchiio-capture-data" title="Permalink to this heading">¶</a></h4>
+<p>Capture IQ data to a file in DWTA format</p>
+<p>PROPS is a list of property=value pairs to set device properties. These are
+the properties available in the pyadi-iio class interface for the device.</p>
+<p>Example usage with ADALM-PLUTO:</p>
+<blockquote>
+<div><p>pybenchiio -u ip:analog.local capture_data -f data.csv -d Pluto -c 0 -s 1024 sample_rate=1000000</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>capture-data<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>PROPS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-pybenchiio-d">
-<span id="cmdoption-pybenchiio-device"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--device</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;device&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Device driver to use</p>
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-capture-data-f">
+<span id="cmdoption-pybenchiio-capture-data-filename"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--filename</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;filename&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-capture-data-f" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Name of file to write data to</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-pybenchiio-x">
-<span id="cmdoption-pybenchiio-complex"></span><span class="sig-name descname"><span class="pre">-x</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--complex</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-pybenchiio-x" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use complex mode</p>
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-capture-data-d">
+<span id="cmdoption-pybenchiio-capture-data-device"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--device</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;device&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-capture-data-d" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Name of device to configure</p>
 </dd></dl>
 
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-capture-data-c">
+<span id="cmdoption-pybenchiio-capture-data-channel"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--channel</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;channel&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-capture-data-c" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Channel index to capture data from. Starts from 0</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-capture-data-s">
+<span id="cmdoption-pybenchiio-capture-data-samples"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--samples</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;samples&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-capture-data-s" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Number of samples to capture</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-capture-data-arg-PROPS">
+<span class="sig-name descname"><span class="pre">PROPS</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-pybenchiio-capture-data-arg-PROPS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument(s)</p>
+</dd></dl>
+
+</section>
 <section id="pybenchiio-set-dds">
-<h3>set-dds<a class="headerlink" href="#pybenchiio-set-dds" title="Permalink to this heading">¶</a></h3>
+<h4>set-dds<a class="headerlink" href="#pybenchiio-set-dds" title="Permalink to this heading">¶</a></h4>
 <p>Configure DDS</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>set-dds<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 </pre></div>
@@ -314,26 +354,144 @@
 </dd></dl>
 
 <dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-set-dds-d">
+<span id="cmdoption-pybenchiio-set-dds-device"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--device</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;device&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-set-dds-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>IIO device driver name to use</p>
+</dd></dl>
+
+<dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-pybenchiio-set-dds-c">
 <span id="cmdoption-pybenchiio-set-dds-channel"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--channel</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;channel&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-set-dds-c" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Required</strong> Set the channel of the DDS</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-set-dds-x">
+<span id="cmdoption-pybenchiio-set-dds-complex"></span><span class="sig-name descname"><span class="pre">-x</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--complex</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-pybenchiio-set-dds-x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use complex mode</p>
+</dd></dl>
+
+</section>
+<section id="pybenchiio-start-server">
+<h4>start-server<a class="headerlink" href="#pybenchiio-start-server" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>start-server<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-start-server-h">
+<span id="cmdoption-pybenchiio-start-server-host"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--host</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;host&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-start-server-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Host to start the server on</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-start-server-p">
+<span id="cmdoption-pybenchiio-start-server-port"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--port</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;port&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-start-server-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Port to start the server on</p>
+</dd></dl>
+
+</section>
+<section id="pybenchiio-stop-server">
+<h4>stop-server<a class="headerlink" href="#pybenchiio-stop-server" title="Permalink to this heading">¶</a></h4>
+<p>Stop the server</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>stop-server<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-stop-server-p">
+<span id="cmdoption-pybenchiio-stop-server-server-port"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--server-port</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;server_port&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-stop-server-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Port of the server</p>
+</dd></dl>
+
+</section>
+<section id="pybenchiio-transmit-data">
+<h4>transmit-data<a class="headerlink" href="#pybenchiio-transmit-data" title="Permalink to this heading">¶</a></h4>
+<p>Transmit IQ data file to device through backend server</p>
+<p>File must be in DWTA format, where the first two lines are sample rate and
+center frequency, and the rest of the lines are IQ data in the format
+I, Q per line.</p>
+<p>Example usage with ADALM-PLUTO:</p>
+<blockquote>
+<div><p>pybenchiio -u ip:analog.local transmit_data -f data.csv -d Pluto -c 0 sample_rate=1000000</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>transmit-data<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>PROPS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-transmit-data-f">
+<span id="cmdoption-pybenchiio-transmit-data-filename"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--filename</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;filename&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-transmit-data-f" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Name of file to write data to</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-transmit-data-d">
+<span id="cmdoption-pybenchiio-transmit-data-device"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--device</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;device&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-transmit-data-d" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Name of device to configure</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-transmit-data-c">
+<span id="cmdoption-pybenchiio-transmit-data-channel"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--channel</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;channel&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-transmit-data-c" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Channel to capture data from</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-transmit-data-s">
+<span id="cmdoption-pybenchiio-transmit-data-server-ip"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--server-ip</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;server_ip&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-transmit-data-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>IP address of the server</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-transmit-data-p">
+<span id="cmdoption-pybenchiio-transmit-data-server-port"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--server-port</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;server_port&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-transmit-data-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Port of the server</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-transmit-data-arg-PROPS">
+<span class="sig-name descname"><span class="pre">PROPS</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-pybenchiio-transmit-data-arg-PROPS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument(s)</p>
+</dd></dl>
+
+</section>
+<section id="pybenchiio-transmit-data-clear">
+<h4>transmit-data-clear<a class="headerlink" href="#pybenchiio-transmit-data-clear" title="Permalink to this heading">¶</a></h4>
+<p>Clear the transmit buffer on the server</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>transmit-data-clear<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-transmit-data-clear-s">
+<span id="cmdoption-pybenchiio-transmit-data-clear-server-ip"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--server-ip</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;server_ip&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-transmit-data-clear-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>IP address of the server</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-pybenchiio-transmit-data-clear-p">
+<span id="cmdoption-pybenchiio-transmit-data-clear-server-port"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--server-port</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;server_port&gt;</span></span><a class="headerlink" href="#cmdoption-pybenchiio-transmit-data-clear-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Port of the server</p>
 </dd></dl>
 
 </section>
 </section>
 <hr class="docutils" />
 <section id="pybench">
-<span id="pybenchcli"></span><h2>pybench<a class="headerlink" href="#pybench" title="Permalink to this heading">¶</a></h2>
+<span id="pybenchcli"></span><h3>pybench<a class="headerlink" href="#pybench" title="Permalink to this heading">¶</a></h3>
 <p>Command line interface for pybench VISA based instruments</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybench<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
 </pre></div>
 </div>
 <section id="pybench-list">
-<h3>list<a class="headerlink" href="#pybench-list" title="Permalink to this heading">¶</a></h3>
+<h4>list<a class="headerlink" href="#pybench-list" title="Permalink to this heading">¶</a></h4>
 <p>List available devices</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybench<span class="w"> </span>list<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 </section>
@@ -394,12 +552,21 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Command Line Interface Tools</a><ul>
+<li><a class="reference internal" href="#keysight-dmx">Keysight DMX</a></li>
+<li><a class="reference internal" href="#reference-apis">Reference APIs</a><ul>
 <li><a class="reference internal" href="#pybenchiio">pybenchiio</a><ul>
+<li><a class="reference internal" href="#pybenchiio-capture-data">capture-data</a></li>
 <li><a class="reference internal" href="#pybenchiio-set-dds">set-dds</a></li>
+<li><a class="reference internal" href="#pybenchiio-start-server">start-server</a></li>
+<li><a class="reference internal" href="#pybenchiio-stop-server">stop-server</a></li>
+<li><a class="reference internal" href="#pybenchiio-transmit-data">transmit-data</a></li>
+<li><a class="reference internal" href="#pybenchiio-transmit-data-clear">transmit-data-clear</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#pybench">pybench</a><ul>
 <li><a class="reference internal" href="#pybench-list">list</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
