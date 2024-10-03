@@ -2,9 +2,10 @@
 import logging
 import os
 
-import bench
 import pytest
 import yaml
+
+import bench
 from bench.common import Common as bcom
 
 p_logger = logging.getLogger("PYBENCH-PLUGGIN")

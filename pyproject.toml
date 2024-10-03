@@ -50,7 +50,8 @@ pybenchiio = "bench.cli.iiotools:cli"
 pybench = "bench.cli.visatools:cli"
 
 [project.optional-dependencies]
-cli = ["click", "pylibiio>=0.23.1"]
+cli = ["click", "pyadi-iio>=0.0.17", "requests"]
+web = ["fastapi[standard]", "uvicorn", "pydantic", "jinja2", "starlette"]
 
 [project.entry-points.pytest11]
 pybench = "bench.plugin"
@@ -72,7 +73,7 @@ ignore_missing_imports="true"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-# addopts = "--custom-hw-map=test/emu/hardware_map.yml --emu-xml-dir=test/emu/devices"
+addopts = "--adi-hw-map"
 testpaths = [
     "tests",
 ]

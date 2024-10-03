@@ -41,6 +41,8 @@ templates_path = ["_templates"]
 exclude_patterns = []
 
 remove_from_toctrees = ["instruments/bench.common.rst"]
+# Keysight blocks curl requests
+linkcheck_ignore = [r"https://www.keysight.com/.*", r"https://keysight.com/.*"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

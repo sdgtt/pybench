@@ -1,6 +1,7 @@
 import logging
 
 import pyvisa
+
 from bench.common import Common, check_connected
 
 

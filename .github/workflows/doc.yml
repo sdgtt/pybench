@@ -19,6 +19,7 @@ jobs:
           ./.github/scripts/install_libiio.sh
           pip install -r requirements_dev.txt
           pip install -r doc/requirements.txt
+          pip install ".[cli,web]"
 
       - name: Build doc
         run: |
@@ -41,6 +42,7 @@ jobs:
           ./.github/scripts/install_libiio.sh
           pip install -r requirements_dev.txt
           pip install -r doc/requirements.txt
+          pip install ".[cli,web]"
 
       - name: Check doc build
         run: |
@@ -80,6 +82,7 @@ jobs:
           ./.github/scripts/install_libiio.sh
           pip install -r requirements_dev.txt
           pip install -r doc/requirements.txt
+          pip install ".[cli,web]"
 
       - name: Build doc and release
         run: |
@@ -111,6 +114,7 @@ jobs:
           ./.github/scripts/install_libiio.sh
           pip install -r requirements_dev.txt
           pip install -r doc/requirements.txt
+          pip install ".[cli,web]"
 
       - name: Build doc and release
         run: |
@@ -151,6 +155,7 @@ jobs:
           pip install -r requirements_dev.txt
           pip install -r doc/requirements.txt
           pip install setuptools wheel twine build
+          pip install ".[cli,web]"
 
       - name: Build doc and release
         run: |
