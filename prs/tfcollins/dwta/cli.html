@@ -269,8 +269,15 @@
 <li><p><a class="reference internal" href="#pybenchiiocli"><code class="docutils literal notranslate"><span class="pre">pybenchiio</span></code></a> - A command line tool for interfacing with libiio devices.</p></li>
 <li><p><a class="reference internal" href="#pybenchcli"><code class="docutils literal notranslate"><span class="pre">pybench</span></code></a> - A command line tool for querying VISA based instruments.</p></li>
 </ul>
+<section id="keysight-dmx">
+<h2>Keysight DMX<a class="headerlink" href="#keysight-dmx" title="Permalink to this heading">¶</a></h2>
+<p>One of the main use cases for the CLI pybench tools is to support the Keysight Device Manager eXpert (DMX) software. The DMX software is a tool for managing and configuring Keysight instruments. The <code class="docutils literal notranslate"><span class="pre">pybench</span></code> CLI tool provides a way for the DMX software to communicate with pybench instruments and devices.</p>
+<p>Since the DMX software uses single commands to perform data capture and data generation this required additional infrastructure specifically for IIO based systems. IIO based systems do not maintain persistent buffer when leveraging custom data vectors through DMA channels. Essentially, when the contexts are closed the buffers clear and the IIO based system will revert back to the DDS data generation state. To solve this problem a backend server was implemented to maintain these buffers that is controlled by the <code class="docutils literal notranslate"><span class="pre">pybenchiio</span></code> CLI tool. See the <a class="reference internal" href="#pybenchiiocli">pybenchiio</a> section for more information.</p>
+</section>
+<section id="reference-apis">
+<h2>Reference APIs<a class="headerlink" href="#reference-apis" title="Permalink to this heading">¶</a></h2>
 <section id="pybenchiio">
-<span id="pybenchiiocli"></span><h2>pybenchiio<a class="headerlink" href="#pybenchiio" title="Permalink to this heading">¶</a></h2>
+<span id="pybenchiiocli"></span><h3>pybenchiio<a class="headerlink" href="#pybenchiio" title="Permalink to this heading">¶</a></h3>
 <p>Command line interface for pybench IIO based boards</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
 </pre></div>
@@ -283,7 +290,7 @@
 </dd></dl>
 
 <section id="pybenchiio-capture-data">
-<h3>capture-data<a class="headerlink" href="#pybenchiio-capture-data" title="Permalink to this heading">¶</a></h3>
+<h4>capture-data<a class="headerlink" href="#pybenchiio-capture-data" title="Permalink to this heading">¶</a></h4>
 <p>Capture IQ data to a file in DWTA format</p>
 <p>PROPS is a list of property=value pairs to set device properties. These are
 the properties available in the pyadi-iio class interface for the device.</p>
@@ -328,7 +335,7 @@ the properties available in the pyadi-iio class interface for the device.</p>
 
 </section>
 <section id="pybenchiio-set-dds">
-<h3>set-dds<a class="headerlink" href="#pybenchiio-set-dds" title="Permalink to this heading">¶</a></h3>
+<h4>set-dds<a class="headerlink" href="#pybenchiio-set-dds" title="Permalink to this heading">¶</a></h4>
 <p>Configure DDS</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>set-dds<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 </pre></div>
@@ -366,7 +373,7 @@ the properties available in the pyadi-iio class interface for the device.</p>
 
 </section>
 <section id="pybenchiio-start-server">
-<h3>start-server<a class="headerlink" href="#pybenchiio-start-server" title="Permalink to this heading">¶</a></h3>
+<h4>start-server<a class="headerlink" href="#pybenchiio-start-server" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>start-server<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 </pre></div>
 </div>
@@ -385,7 +392,7 @@ the properties available in the pyadi-iio class interface for the device.</p>
 
 </section>
 <section id="pybenchiio-stop-server">
-<h3>stop-server<a class="headerlink" href="#pybenchiio-stop-server" title="Permalink to this heading">¶</a></h3>
+<h4>stop-server<a class="headerlink" href="#pybenchiio-stop-server" title="Permalink to this heading">¶</a></h4>
 <p>Stop the server</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>stop-server<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 </pre></div>
@@ -399,7 +406,7 @@ the properties available in the pyadi-iio class interface for the device.</p>
 
 </section>
 <section id="pybenchiio-transmit-data">
-<h3>transmit-data<a class="headerlink" href="#pybenchiio-transmit-data" title="Permalink to this heading">¶</a></h3>
+<h4>transmit-data<a class="headerlink" href="#pybenchiio-transmit-data" title="Permalink to this heading">¶</a></h4>
 <p>Transmit IQ data file to device through backend server</p>
 <p>File must be in DWTA format, where the first two lines are sample rate and
 center frequency, and the rest of the lines are IQ data in the format
@@ -451,7 +458,7 @@ I, Q per line.</p>
 
 </section>
 <section id="pybenchiio-transmit-data-clear">
-<h3>transmit-data-clear<a class="headerlink" href="#pybenchiio-transmit-data-clear" title="Permalink to this heading">¶</a></h3>
+<h4>transmit-data-clear<a class="headerlink" href="#pybenchiio-transmit-data-clear" title="Permalink to this heading">¶</a></h4>
 <p>Clear the transmit buffer on the server</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybenchiio<span class="w"> </span>transmit-data-clear<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 </pre></div>
@@ -473,17 +480,18 @@ I, Q per line.</p>
 </section>
 <hr class="docutils" />
 <section id="pybench">
-<span id="pybenchcli"></span><h2>pybench<a class="headerlink" href="#pybench" title="Permalink to this heading">¶</a></h2>
+<span id="pybenchcli"></span><h3>pybench<a class="headerlink" href="#pybench" title="Permalink to this heading">¶</a></h3>
 <p>Command line interface for pybench VISA based instruments</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybench<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
 </pre></div>
 </div>
 <section id="pybench-list">
-<h3>list<a class="headerlink" href="#pybench-list" title="Permalink to this heading">¶</a></h3>
+<h4>list<a class="headerlink" href="#pybench-list" title="Permalink to this heading">¶</a></h4>
 <p>List available devices</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pybench<span class="w"> </span>list<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 </section>
@@ -544,6 +552,8 @@ I, Q per line.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Command Line Interface Tools</a><ul>
+<li><a class="reference internal" href="#keysight-dmx">Keysight DMX</a></li>
+<li><a class="reference internal" href="#reference-apis">Reference APIs</a><ul>
 <li><a class="reference internal" href="#pybenchiio">pybenchiio</a><ul>
 <li><a class="reference internal" href="#pybenchiio-capture-data">capture-data</a></li>
 <li><a class="reference internal" href="#pybenchiio-set-dds">set-dds</a></li>
@@ -555,6 +565,8 @@ I, Q per line.</p>
 </li>
 <li><a class="reference internal" href="#pybench">pybench</a><ul>
 <li><a class="reference internal" href="#pybench-list">list</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
