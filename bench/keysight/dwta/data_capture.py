@@ -32,11 +32,23 @@ def capture_iq_datafile(
     device = getattr(adi, device_name)(uri)
 
     # Assume kwargs are attributes to set
-    for key, value in kwargs.items():
-        print(f"Setting {key} to {value}")
+    for key, value_index in kwargs.items():
+        value = value_index["value"]
+        index = value_index["index"]
         if not hasattr(device, key):
             raise AttributeError(f"Device does not have attribute: {key}")
-        setattr(device, key, value)
+        if index == -1:
+            print(f"Setting {key} to {value}")
+            setattr(device, key, value)
+        else:
+            prop = getattr(device, key)
+            if prop is not list:
+                raise ValueError(f"Property {key} is not an array")
+            assert index < len(prop), f"Index out of range for {key}"
+            prop[index] = value
+            print(f"Setting {key}[{index}] to {value}")
+            setattr(device, key, prop)
+
 
     # Capture data
     device.rx_enabled_channels = [channel]

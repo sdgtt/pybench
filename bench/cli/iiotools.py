@@ -113,12 +113,21 @@ def capture_data(ctx, filename, device, channel, samples, props):
         for prop in props:
             if "=" not in prop:
                 raise ValueError(
-                    f"Invalid property: {prop}. Must be in the form key=value"
+                    f"Invalid property: {prop}. Must be in the form key=value\n",
+                    "or key=value,index for array properties",
                 )
             k, v = prop.split("=")
+            if "," in v:
+                v = v.split(",")
+                assert len(v) == 2, "Invalid array property"
+                v = v[0]
+                assert v.isdigit(), "Invalid array index property"
+                index = int(v[1])
+            else:
+                index = -1
             if v.isdigit():
                 v = int(v)
-            oprops[k] = v
+            oprops[k] = {"value": v, "index": index}
         props = oprops
 
     capture_iq_datafile(
