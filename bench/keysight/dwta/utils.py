@@ -18,6 +18,9 @@ def data_to_iq_datafile(
         data: The data to write.
         filename: The filename to write to.
         device_check: Check if specific class is supported. Default is True.
+
+    Returns:
+        Tuple of sample rate and center frequency.
     """
     # Checks
     assert data.dtype == np.complex128, "Data must be complex"
@@ -55,3 +58,5 @@ def data_to_iq_datafile(
             f.write(f"{d.real},{d.imag}\n")
 
     print(f"Data written to {filename}")
+
+    return sample_rate, center_frequency

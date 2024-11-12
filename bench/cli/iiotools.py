@@ -88,12 +88,14 @@ def set_dds(ctx, frequency, amplitude, device, channel, complex):
     help="Channel index to capture data from. Starts from 0",
     required=True,
 )
+@click.option("--side", "-S", help="Side of the device to capture data from", default=None)
 @click.option("--samples", "-s", help="Number of samples to capture", required=True)
+@click.option("--plot", "-p", is_flag=True, help="Plot the data")
 @click.argument(
     "props", nargs=-1, required=False,
 )
 @click.pass_context
-def capture_data(ctx, filename, device, channel, samples, props):
+def capture_data(ctx, filename, device, channel, side, samples, plot, props):
     """Capture IQ data to a file in DWTA format
 
     PROPS is a list of property=value pairs to set device properties. These are
@@ -122,7 +124,7 @@ def capture_data(ctx, filename, device, channel, samples, props):
         props = oprops
 
     capture_iq_datafile(
-        filename, device, channel, samples, ctx.obj["uri"], **dict(props)
+        filename, device, channel, side, samples, plot, ctx.obj["uri"], **dict(props)
     )
 
 

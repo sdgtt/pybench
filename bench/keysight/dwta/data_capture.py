@@ -7,7 +7,7 @@ from .utils import data_to_iq_datafile
 
 
 def capture_iq_datafile(
-    filename: str, device_name: str, channel: int, samples: int, uri: str, **kwargs
+    filename: str, device_name: str, channel: int, side: int, samples: int, plot: bool, uri: str, **kwargs
 ) -> None:
     """Capture IQ data to a file.
 
@@ -15,7 +15,9 @@ def capture_iq_datafile(
         filename: The filename to write to.
         device_name: The device name.
         channel: The channel to capture data from.
+        side: The device side to capture data from (AD9084/AD9088 only).
         samples: The number of samples to capture.
+        plot: Enable plotting.
         uri: The URI of the device.
         *args: Additional arguments.
         **kwargs: Additional keyword arguments.
@@ -41,7 +43,31 @@ def capture_iq_datafile(
     # Capture data
     device.rx_enabled_channels = [channel]
     device.rx_buffer_size = samples
-    data = device.rx()
+    if side is None or side == "A":
+        data = device.rx()
+    elif side == "B":
+        data = device.rx2()
+    else:
+        raise ValueError(f"Invalid side: {side}")
 
     # Write data to file
-    data_to_iq_datafile(device, data, filename, device_check=False)
+    fs, fc  = data_to_iq_datafile(device, data, filename, device_check=False)
+
+    # Plot data
+    if plot:
+        import matplotlib.pyplot as plt
+        from scipy import signal
+
+        plt.figure()
+        plt.plot(data.real, label="I")
+        plt.plot(data.imag, label="Q")
+        plt.legend()
+
+        plt.figure()
+        f, Pxx_den = signal.periodogram(data, fs)
+        plt.semilogy(f, Pxx_den)
+        plt.xlabel("frequency [Hz]")
+        plt.ylabel("Amplitude [dBFS]")
+        plt.title(f"Center Frequency: {fc}Hz")
+        plt.show()
+
