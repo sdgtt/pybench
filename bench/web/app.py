@@ -38,6 +38,7 @@ class BufferWrite(BaseModel):
     uri: str
     device: str
     channel: int
+    side: Union[int, None]
     data_filename: str
     do_scaling: bool
     cycle: bool
@@ -98,7 +99,12 @@ async def writebuffer(bufferwrite: BufferWrite):
 
     # Write data to buffer
     device.tx_cyclic_buffer = bufferwrite.cycle
-    device.tx(complex_data)
+    if bufferwrite.side is None or bufferwrite.side == "A":
+        device.tx(complex_data)
+    elif bufferwrite.side == "B":
+        device.tx2(complex_data)
+    else:
+        return {"status": f"Invalid side: {bufferwrite.side}"}
 
     # Save device state
     write_state("device", device)

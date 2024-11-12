@@ -132,6 +132,7 @@ def capture_data(ctx, filename, device, channel, side, samples, plot, props):
 @click.option("--filename", "-f", help="Name of file to write data to", required=True)
 @click.option("--device", "-d", help="Name of device to configure", required=True)
 @click.option("--channel", "-c", help="Channel to capture data from", required=True)
+@click.option("--side", "-S", help="Side of the device to capture data from", default=None)
 @click.option(
     "--server-ip",
     "-s",
@@ -144,7 +145,7 @@ def capture_data(ctx, filename, device, channel, side, samples, plot, props):
 )
 @click.argument("props", nargs=-1)
 @click.pass_context
-def transmit_data(ctx, filename, device, channel, server_ip, server_port, props):
+def transmit_data(ctx, filename, device, channel, side, server_ip, server_port, props):
     """Transmit IQ data file to device through backend server
 
     File must be in DWTA format, where the first two lines are sample rate and
@@ -187,6 +188,7 @@ def transmit_data(ctx, filename, device, channel, server_ip, server_port, props)
         "uri": ctx.obj["uri"],
         "device": device,
         "channel": channel,
+        "side": side,
         "data_filename": filename,
         "do_scaling": False,
         "cycle": True,
