@@ -41,12 +41,16 @@ def capture_iq_datafile(
         setattr(device, key, value)
 
     # Capture data
+    device._rxadc.set_kernel_buffers_count(1)
     device.rx_enabled_channels = [channel]
     device.rx_buffer_size = samples
     if side is None or side == "A":
-        data = device.rx()
+        for _ in range(2):
+            data = device.rx()
     elif side == "B":
-        data = device.rx2()
+        device._rxadc2.set_kernel_buffers_count(1)
+        for _ in range(2):
+            data = device.rx2()
     else:
         raise ValueError(f"Invalid side: {side}")
 
