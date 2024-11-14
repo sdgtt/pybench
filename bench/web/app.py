@@ -63,48 +63,64 @@ async def writebuffer(bufferwrite: BufferWrite):
         return {
             "status": f"Device not supported: {bufferwrite.device}. Supported devices: {supported_devices}"
         }
+    
+    # Clear buffer
+    write_state("buffer", None)
+    write_state("device", None)
 
     # Create device
-    device = getattr(adi, bufferwrite.device)(bufferwrite.uri)
-    device.tx_enabled_channels = [bufferwrite.channel]
-    for prop in bufferwrite.properties:
-        key, value = prop.split("=")
-        if not hasattr(device, key):
-            return {"status": f"Device does not have attribute: {key}"}
-        if value.isdigit():
-            value = int(value)
-        setattr(device, key, value)
+    try:
+        device = getattr(adi, bufferwrite.device)(bufferwrite.uri)
+        device.tx_enabled_channels = [bufferwrite.channel]
+        for prop in bufferwrite.properties:
+            key, value = prop.split("=")
+            if not hasattr(device, key):
+                return {"status": f"Device does not have attribute: {key}"}
+            if value.isdigit():
+                value = int(value)
+            setattr(device, key, value)
+    except Exception as e:
+        return {"status": f"Failed to create device: {e}"}
 
     # Read data from file
     # CSV file where first two rows are sample rate and center frequency
     # Rest of the rows are IQ data in format: I, Q
-    with open(bufferwrite.data_filename, "r") as f:
-        sample_rate = int(f.readline().split("=")[1].replace("\n", ""))
-        center_frequency = int(float(f.readline().split("=")[1].replace("\n", "")))
-        i_list = []
-        q_list = []
-        for line in f:
-            i, q = line.split(",")
-            i = float(i)
-            q = float(q)
-            i_list.append(int(i))
-            q_list.append(int(q))
-        complex_data = np.array(i_list) + 1j * np.array(q_list)
+    try:
+        with open(bufferwrite.data_filename, "r") as f:
+            sample_rate = int(f.readline().split("=")[1].replace("\n", ""))
+            center_frequency = int(float(f.readline().split("=")[1].replace("\n", "")))
+            i_list = []
+            q_list = []
+            for line in f:
+                i, q = line.split(",")
+                i = float(i)
+                q = float(q)
+                i_list.append(int(i))
+                q_list.append(int(q))
+            complex_data = np.array(i_list) + 1j * np.array(q_list)
+    except Exception as e:
+        return {"status": f"Failed to read data from file: {e}"}
 
-    if type(device) in [adi.Pluto]:
-        device.sample_rate = sample_rate
-        device.tx_lo = center_frequency
-    elif type(device) in [adi.ad9081, adi.ad9084]:
-        assert device.tx_sample_rate == sample_rate, "Sample rate mismatch"
+    try:
+        if type(device) in [adi.Pluto]:
+            device.sample_rate = sample_rate
+            device.tx_lo = center_frequency
+        elif type(device) in [adi.ad9081, adi.ad9084]:
+            assert device.tx_sample_rate == sample_rate, "Sample rate mismatch"
+    except Exception as e:
+        return {"status": f"Failed to set device attributes: {e}"}
 
     # Write data to buffer
-    device.tx_cyclic_buffer = bufferwrite.cycle
-    if bufferwrite.side is None or bufferwrite.side == "A":
-        device.tx(complex_data)
-    elif bufferwrite.side == "B":
-        device.tx2(complex_data)
-    else:
-        return {"status": f"Invalid side: {bufferwrite.side}"}
+    try:
+        device.tx_cyclic_buffer = bufferwrite.cycle
+        if bufferwrite.side is None or bufferwrite.side == "A":
+            device.tx(complex_data)
+        elif bufferwrite.side == "B":
+            device.tx2(complex_data)
+        else:
+            return {"status": f"Invalid side: {bufferwrite.side}"}
+    except Exception as e:
+        return {"status": f"Failed to write data to buffer: {e}"}
 
     # Save device state
     write_state("device", device)
