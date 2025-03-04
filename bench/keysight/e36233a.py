@@ -79,6 +79,13 @@ class channel:
             raise Exception("Invalid operational mode. Must be one of: OFF, SER, PAR")
         self.parent._instr.write(f"OUTP:PAIR {value}")
 
+    @property
+    def current_draw(self):
+        """Get the current draw of the channel"""
+        self._set_channel()
+        i_temp = self.parent._instr.query("MEASure:SCALar:CURRent:DC?")
+        return self._to_float(i_temp)
+
 
 class E36233A(Common):
     """Keysight E36233A Power Supply"""
