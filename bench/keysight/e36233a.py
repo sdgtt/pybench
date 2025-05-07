@@ -54,7 +54,7 @@ class channel:
     def output_enabled(self):
         """Enable output of channel (True) or disable output (False)"""
         self._set_channel()
-        return bool(self.parent._instr.query("OUTP:STAT?"))
+        return bool(self.parent._instr.query("OUTP:STAT?") == "1")
 
     @output_enabled.setter
     def output_enabled(self, value) -> bool:
