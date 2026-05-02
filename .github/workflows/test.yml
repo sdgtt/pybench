@@ -20,7 +20,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install pyvisa pyvisa-sim pyyaml pytest numpy
+          pip install -e .
+          pip install pyvisa-sim pytest
 
       - name: Run pyvisa-sim tests
         run: |
