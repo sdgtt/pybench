@@ -4,7 +4,6 @@ import os
 import subprocess
 from typing import List, Union
 
-import adi
 import numpy as np
 
 
@@ -35,6 +34,8 @@ def data_to_iq_datafile(
         sample_rate = device.rx_sample_rate
     else:
         raise AttributeError("Device does not have sample rate attribute")
+
+    import adi
 
     if type(device) in [adi.Pluto]:
         center_frequency = int(device.rx_lo)  # FIXME
