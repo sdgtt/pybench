@@ -23,12 +23,20 @@ class instrument:
 
     _retries = 5
 
-    def __init__(self, rm, address, auto_reconnect=True, use_py_resource_manager=True):
+    def __init__(
+        self,
+        rm,
+        address,
+        auto_reconnect=True,
+        use_py_resource_manager=True,
+        backend=None,
+    ):
         self.rm = rm
         self.address = address
         self.instr = rm.open_resource(address)
         self.auto_reconnect = auto_reconnect
         self.use_py_resource_manager = use_py_resource_manager
+        self.backend = backend
 
     def _reconnect(self, error):
         if not self.auto_reconnect:
@@ -37,7 +45,9 @@ class instrument:
         print("Reconnecting")
         for retry in range(self._retries):
             try:
-                if self.use_py_resource_manager:
+                if self.backend is not None:
+                    self.rm = pyvisa.ResourceManager(self.backend)
+                elif self.use_py_resource_manager:
                     self.rm = pyvisa.ResourceManager("@py")
                 else:
                     self.rm = pyvisa.ResourceManager()
@@ -98,6 +108,22 @@ class instrument:
             self._reconnect(ex)
             self.instr.timeout = value
 
+    @property
+    def read_termination(self):
+        return self.instr.read_termination
+
+    @read_termination.setter
+    def read_termination(self, value):
+        self.instr.read_termination = value
+
+    @property
+    def write_termination(self):
+        return self.instr.write_termination
+
+    @write_termination.setter
+    def write_termination(self, value):
+        self.instr.write_termination = value
+
 
 class Common:
 
@@ -112,6 +138,10 @@ class Common:
 
     use_py_resource_manager = True
     """Use @py resource manager"""
+
+    backend = None
+    """Override pyvisa backend string (e.g. "@sim", "/path/to/dev.yaml@sim").
+    When set, takes precedence over use_py_resource_manager."""
 
     use_config_file = False
     """Use config file to get address for instrument(s)"""
@@ -170,14 +200,25 @@ class Common:
             self._instr.auto_reconnect = value
         self._auto_reconnect = value
 
-    def __init__(self, address: str = None, use_config_file=False) -> None:
-        """Initialize the N9040B UXA
+    def __init__(
+        self, address: str = None, use_config_file=False, backend: str = None
+    ) -> None:
+        """Initialize an instrument.
 
         Parameters
         ----------
         address : str, optional
             VISA address of the device. If not provided, the device will be found automatically.
+        use_config_file : bool, optional
+            If True, look up address by ``id`` from a ``bench.yaml`` config file.
+        backend : str, optional
+            Override the pyvisa backend string (e.g. ``"@sim"`` or
+            ``"/path/to/device.yaml@sim"``). When set, takes precedence over
+            ``use_py_resource_manager``. Mainly used for tests against
+            pyvisa-sim.
         """
+        if backend is not None:
+            self.backend = backend
         if use_config_file:
             self.use_config_file = use_config_file
             self._read_from_config()
@@ -208,7 +249,9 @@ class Common:
             common_log.info(f"Using address {self.address}")
             for retry in range(self._retries):
                 try:
-                    if self.use_py_resource_manager:
+                    if self.backend is not None:
+                        self._rm = pyvisa.ResourceManager(self.backend)
+                    elif self.use_py_resource_manager:
                         self._rm = pyvisa.ResourceManager("@py")
                     else:
                         self._rm = pyvisa.ResourceManager()
@@ -217,6 +260,7 @@ class Common:
                         self.address,
                         self.auto_reconnect,
                         self.use_py_resource_manager,
+                        self.backend,
                     )
                     break
                 except Exception as ex:
@@ -227,6 +271,7 @@ class Common:
                         raise ex
             self._connected = True
             self._instr.timeout = 15000
+            self._instr.read_termination = "\n"
             self._instr.write("*CLS")
             q_id = self._instr.query("*IDN?")
             if self.id not in q_id:
@@ -254,7 +299,11 @@ class Common:
                 self.address = res
                 # self._instr = rm.open_resource(self.address)
                 self._instr = instrument(
-                    rm, self.address, self.auto_reconnect, self.use_py_resource_manager
+                    rm,
+                    self.address,
+                    self.auto_reconnect,
+                    self.use_py_resource_manager,
+                    self.backend,
                 )
                 self._instr.timeout = 15000
                 self._instr.write("*CLS")
@@ -264,6 +313,12 @@ class Common:
 
     def _find_device(self):
         """Find desired devices automatically"""
+
+        if self.backend is not None:
+            self._rm = pyvisa.ResourceManager(self.backend)
+            if self._find_dev_ind(self._rm):
+                return
+            raise Exception(f"No instrument found with ID: {self.id}")
 
         if os.name != "posix":
             self._rm = pyvisa.ResourceManager()
