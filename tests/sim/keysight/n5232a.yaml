@@ -1,0 +1,71 @@
+spec: "1.1"
+devices:
+  n5232a:
+    eom:
+      TCPIP INSTR:
+        q: "\r\n"
+        r: "\n"
+    error: ERROR
+    dialogues:
+      - q: "*IDN?"
+        r: "Keysight Technologies,N5232A,MY51000001,A.10.50"
+      - q: "*CLS"
+      - q: "*RST"
+    properties:
+      start_frequency:
+        default: 300.0e3
+        getter:
+          q: ":SENS:FREQ:STAR?"
+          r: "{:.6E}"
+        setter:
+          q: ":SENS:FREQ:STAR {:.6E}"
+        specs:
+          min: 300.0e3
+          max: 20.0e9
+          type: float
+      stop_frequency:
+        default: 20.0e9
+        getter:
+          q: ":SENS:FREQ:STOP?"
+          r: "{:.6E}"
+        setter:
+          q: ":SENS:FREQ:STOP {:.6E}"
+        specs:
+          min: 300.0e3
+          max: 20.0e9
+          type: float
+      num_points:
+        default: 201
+        getter:
+          q: ":SENS:SWE:POIN?"
+          r: "{:d}"
+        setter:
+          q: ":SENS:SWE:POIN {:d}"
+        specs:
+          min: 2
+          max: 32001
+          type: int
+      output_power:
+        default: -10.0
+        getter:
+          q: ":SOUR:POW?"
+          r: "{:.2f}"
+        setter:
+          q: ":SOUR:POW {:.6E}"
+        specs:
+          min: -55.0
+          max: 13.0
+          type: float
+      output_enabled:
+        default: 0
+        getter:
+          q: ":OUTP?"
+          r: "{:d}"
+        setter:
+          q: ":OUTP {:d}"
+        specs:
+          valid: [0, 1]
+          type: int
+resources:
+  TCPIP0::sim-n5232a::inst0::INSTR:
+    device: n5232a

@@ -13,6 +13,7 @@ bump2version
 pytest-html==3.2.0
 plotly-express
 pyvisa
+pyvisa-sim
 matplotlib
 pytoml
 pylibiio>=0.23.1
