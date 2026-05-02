@@ -1,0 +1,59 @@
+spec: "1.1"
+devices:
+  n5182b:
+    eom:
+      TCPIP INSTR:
+        q: "\r\n"
+        r: "\n"
+    error: ERROR
+    dialogues:
+      - q: "*IDN?"
+        r: "Keysight Technologies,N5182B,MY53000001,A.01.50"
+      - q: "*CLS"
+      - q: "*RST"
+    properties:
+      frequency:
+        default: 1.0e9
+        getter:
+          q: ":FREQ?"
+          r: "{:.6E}"
+        setter:
+          q: ":FREQ {:.6E}"
+        specs:
+          min: 9.0e3
+          max: 6.0e9
+          type: float
+      power:
+        default: -10.0
+        getter:
+          q: ":POW?"
+          r: "{:.2f}"
+        setter:
+          q: ":POW {:.6E}"
+        specs:
+          min: -144.0
+          max: 30.0
+          type: float
+      output_enabled:
+        default: 0
+        getter:
+          q: ":OUTP?"
+          r: "{:d}"
+        setter:
+          q: ":OUTP {:d}"
+        specs:
+          valid: [0, 1]
+          type: int
+      modulation_enabled:
+        default: 0
+        getter:
+          q: ":OUTP:MOD?"
+          r: "{:d}"
+        setter:
+          q: ":OUTP:MOD {:d}"
+        specs:
+          valid: [0, 1]
+          type: int
+resources:
+  TCPIP0::sim-n5182b::inst0::INSTR:
+    device: n5182b

@@ -1,0 +1,58 @@
+spec: "1.1"
+devices:
+  e36233a:
+    eom:
+      TCPIP INSTR:
+        q: "\r\n"
+        r: "\n"
+    error: ERROR
+    dialogues:
+      - q: "*IDN?"
+        r: "Keysight Technologies,E36233A,MY59000001,1.0.0-1.0.0"
+      - q: "*CLS"
+      - q: "*RST"
+      - q: "INST CH1"
+      - q: "INST CH2"
+      - q: "OUTP:PAIR?"
+        r: "OFF"
+      - q: "OUTP:PAIR OFF"
+      - q: "OUTP:PAIR SER"
+      - q: "OUTP:PAIR PAR"
+      - q: "MEASure:SCALar:CURRent:DC?"
+        r: "1.234500E+00"
+    properties:
+      voltage:
+        default: 0.0
+        getter:
+          q: "SOUR:VOLT?"
+          r: "{:.6E}"
+        setter:
+          q: "SOUR:VOLT {:.6E}"
+        specs:
+          min: 0.0
+          max: 30.0
+          type: float
+      current:
+        default: 1.0
+        getter:
+          q: "SOUR:CURR?"
+          r: "{:.6E}"
+        setter:
+          q: "SOUR:CURR {:.6E}"
+        specs:
+          min: 0.0
+          max: 10.0
+          type: float
+      output_enabled:
+        default: 0
+        getter:
+          q: "OUTP:STAT?"
+          r: "{:d}"
+        setter:
+          q: "OUTP:STAT {:d}"
+        specs:
+          valid: [0, 1]
+          type: int
+resources:
+  TCPIP0::sim-e36233a::inst0::INSTR:
+    device: e36233a

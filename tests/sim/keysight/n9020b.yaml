@@ -1,0 +1,53 @@
+spec: "1.1"
+devices:
+  n9020b:
+    eom:
+      TCPIP INSTR:
+        q: "\r\n"
+        r: "\n"
+    error: ERROR
+    dialogues:
+      - q: "*IDN?"
+        r: "Keysight Technologies,N9020B,MY56000001,A.20.00"
+      - q: "*CLS"
+      - q: "*RST"
+      - q: ":CALC:MARK1:MAX"
+      - q: ":CALC:MARK1:Y?"
+        r: "-12.34"
+    properties:
+      center_frequency:
+        default: 1.0e9
+        getter:
+          q: ":FREQ:CENT?"
+          r: "{:.6E}"
+        setter:
+          q: ":FREQ:CENT {:.6E}"
+        specs:
+          min: 10.0
+          max: 26.5e9
+          type: float
+      span:
+        default: 1.0e6
+        getter:
+          q: ":FREQ:SPAN?"
+          r: "{:.6E}"
+        setter:
+          q: ":FREQ:SPAN {:.6E}"
+        specs:
+          min: 0.0
+          max: 26.5e9
+          type: float
+      reference_level:
+        default: 0.0
+        getter:
+          q: ":DISP:WIND:TRAC:Y:RLEV?"
+          r: "{:.2f}"
+        setter:
+          q: ":DISP:WIND:TRAC:Y:RLEV {:.6E}"
+        specs:
+          min: -170.0
+          max: 30.0
+          type: float
+resources:
+  TCPIP0::sim-n9020b::inst0::INSTR:
+    device: n9020b

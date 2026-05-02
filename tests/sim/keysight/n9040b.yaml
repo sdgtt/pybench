@@ -1,0 +1,47 @@
+spec: "1.1"
+devices:
+  n9040b:
+    eom:
+      TCPIP INSTR:
+        q: "\r\n"
+        r: "\n"
+    error: ERROR
+    dialogues:
+      - q: "*IDN?"
+        r: "Keysight Technologies,N9040B,MY58000001,A.22.00"
+      - q: "*CLS"
+      - q: "*RST"
+      - q: "CALC:MARK1:MAX"
+      - q: "CALC:MARK1:Y?"
+        r: "-30.10"
+      - q: ":CALC:MARK:TABLe:STAT?"
+        r: "0"
+      - q: ":CALC:MARK:PEAK:TABLe:STAT 1"
+      - q: ":CALC:MARK:PEAK:SORT FREQ"
+      - q: ":CALC:MARK:PEAK:TABLe:READ ALL"
+    properties:
+      span:
+        default: 1.0e6
+        getter:
+          q: "FREQ:SPAN?"
+          r: "{:.6E}"
+        setter:
+          q: "FREQ:SPAN {:.6E}"
+        specs:
+          min: 0.0
+          max: 50.0e9
+          type: float
+      center_frequency:
+        default: 1.0e9
+        getter:
+          q: "FREQ:CENT?"
+          r: "{:.6E}"
+        setter:
+          q: "FREQ:CENT {:.6E}"
+        specs:
+          min: 3.0
+          max: 50.0e9
+          type: float
+resources:
+  TCPIP0::sim-n9040b::inst0::INSTR:
+    device: n9040b

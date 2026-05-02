@@ -1,0 +1,27 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  Sim:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pyvisa pyvisa-sim pyyaml pytest numpy
+
+      - name: Run pyvisa-sim tests
+        run: |
+          pytest tests/test_sim_keysight.py -o addopts="" -v
