@@ -164,8 +164,12 @@ def _emit_yaml(class_name, address, dialogues):
 
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    p.add_argument("class_name", help="Class name as exposed under bench.all (e.g. N5182B)")
-    p.add_argument("address", help="VISA address of the (real or CE-emulated) instrument")
+    p.add_argument(
+        "class_name", help="Class name as exposed under bench.all (e.g. N5182B)"
+    )
+    p.add_argument(
+        "address", help="VISA address of the (real or CE-emulated) instrument"
+    )
     p.add_argument("--backend", default=None, help="Override pyvisa backend (e.g. @py)")
     p.add_argument(
         "--set",
@@ -186,7 +190,10 @@ def main(argv=None):
 
     cls = getattr(bench_all, args.class_name, None)
     if cls is None:
-        print(f"Unknown class {args.class_name!r}. Make sure it is exported from bench.all.", file=sys.stderr)
+        print(
+            f"Unknown class {args.class_name!r}. Make sure it is exported from bench.all.",
+            file=sys.stderr,
+        )
         return 2
 
     inst = cls(address=args.address, backend=args.backend)
