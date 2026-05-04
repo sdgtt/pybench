@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Supported Instruments" href="instruments/index.html" /><link rel="prev" title="Installation" href="install.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Configuration" href="config_file.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.08.06 -->
-        <title>Usage Model - pybench v0.0.1</title>
+        <title>Simulator-backed testing - pybench v0.0.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -199,9 +199,9 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Usage Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_usage.html">Usage Model</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="instruments/index.html">Supported Instruments</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Supported Instruments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="instruments/bench.hittite.hmct2220.html">Hittite HMCT2220 Frequency Generator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="instruments/bench.keysight.e36233a.html">Keysight E36233A Power Supply</a></li>
@@ -216,9 +216,9 @@
 <li class="toctree-l1"><a class="reference internal" href="frameworks/pytest.html">pytest</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Special Functionality</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="config_file.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sim_testing.html">Simulator-backed testing</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Simulator-backed testing</a></li>
 </ul>
 
 </div>
@@ -239,7 +239,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/example_usage.md.txt" title="View this page">
+  <a class="muted-link" href="_sources/sim_testing.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -259,53 +259,53 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="usage-model">
-<h1>Usage Model<a class="headerlink" href="#usage-model" title="Permalink to this heading">¶</a></h1>
-<p>All supported instruments within pybench have a similar API and usage model. This allows for a consistent experience when using different instruments in your tests. This page describes the usage model for pybench instruments through examples.</p>
-<section id="basic-usage">
-<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading">¶</a></h2>
-<p>The following example demonstrates how to use a power supply instrument to set the output voltage and current, and then enable the output.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bench.keysight</span><span class="w"> </span><span class="kn">import</span> <span class="n">E36233A</span>
+          <section id="simulator-backed-testing">
+<h1>Simulator-backed testing<a class="headerlink" href="#simulator-backed-testing" title="Permalink to this heading">¶</a></h1>
+<p>pybench tests can run against <a class="reference external" href="https://pyvisa.readthedocs.io/projects/pyvisa-sim/">pyvisa-sim</a> instead of real hardware. This is what CI uses to verify that every instrument class emits the SCPI it claims to.</p>
+<section id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">bench.common.Common</span></code> accepts a <code class="docutils literal notranslate"><span class="pre">backend</span></code> argument that is passed to <code class="docutils literal notranslate"><span class="pre">pyvisa.ResourceManager</span></code>. Setting <code class="docutils literal notranslate"><span class="pre">backend=&quot;&lt;yaml-path&gt;&#64;sim&quot;</span></code> swaps the live VISA layer for pyvisa-sim, which serves canned responses out of a YAML file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bench.keysight</span><span class="w"> </span><span class="kn">import</span> <span class="n">N5182B</span>
 
-<span class="c1"># Create an instance of the power supply</span>
-<span class="n">ps</span> <span class="o">=</span> <span class="n">E36233A</span><span class="p">(</span><span class="s2">&quot;TCPIP0::192.168.1.1::inst0::INSTR&quot;</span><span class="p">)</span>
-
-<span class="c1"># Set the output voltage to 5V for channel 1</span>
-<span class="n">ps</span><span class="o">.</span><span class="n">ch1</span><span class="o">.</span><span class="n">voltage</span> <span class="o">=</span> <span class="mi">5</span>
-
-<span class="c1"># Set the output current to 1A for channel 2</span>
-<span class="n">ps</span><span class="o">.</span><span class="n">ch2</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="mi">1</span>
-
-<span class="c1"># Enable the output for channel 1</span>
-<span class="n">ps</span><span class="o">.</span><span class="n">ch1</span><span class="o">.</span><span class="n">output_enabled</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="c1"># Check output operational mode</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">ch1</span><span class="o">.</span><span class="n">operational_mode</span><span class="p">)</span>
+<span class="n">sg</span> <span class="o">=</span> <span class="n">N5182B</span><span class="p">(</span>
+    <span class="n">address</span><span class="o">=</span><span class="s2">&quot;TCPIP0::sim-n5182b::inst0::INSTR&quot;</span><span class="p">,</span>
+    <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;tests/sim/keysight/n5182b.yaml@sim&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sg</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">sg</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mf">2.4e9</span>
+<span class="k">assert</span> <span class="n">sg</span><span class="o">.</span><span class="n">frequency</span> <span class="o">==</span> <span class="mf">2.4e9</span>
 </pre></div>
 </div>
+<p>Sim YAMLs live in <code class="docutils literal notranslate"><span class="pre">tests/sim/keysight/</span></code>. The CI workflow at <code class="docutils literal notranslate"><span class="pre">.github/workflows/test.yml</span></code> runs <code class="docutils literal notranslate"><span class="pre">tests/test_sim_keysight.py</span></code> against every YAML on push.</p>
 </section>
-<section id="using-configuration-files">
-<h2>Using configuration files<a class="headerlink" href="#using-configuration-files" title="Permalink to this heading">¶</a></h2>
-<p>The following example demonstrates how to use a configuration file to define the instruments available to pybench.</p>
-<p>We will use the following configuration file (“bench.yaml”) to define the instruments available to pybench:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">siggen</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TCPIP::192.168.1.2::inst0::INSTR&quot;</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SMA100A</span>
+<section id="recording-from-real-or-command-expert-emulated-hardware">
+<h2>Recording from real or Command Expert-emulated hardware<a class="headerlink" href="#recording-from-real-or-command-expert-emulated-hardware" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">scripts/dump_to_sim.py</span></code> helper captures real SCPI traffic and writes a pyvisa-sim YAML.</p>
+<p>The intended workflow is:</p>
+<ol class="arabic">
+<li><p><strong>Install Keysight Command Expert</strong> (Windows). Command Expert ships with simulator personalities for most current Keysight instruments and exposes them as VISA resources on <code class="docutils literal notranslate"><span class="pre">localhost</span></code>.</p></li>
+<li><p><strong>Configure the simulated instrument</strong> in Command Expert so it appears at a VISA address such as <code class="docutils literal notranslate"><span class="pre">TCPIP0::127.0.0.1::INSTR</span></code>.</p></li>
+<li><p><strong>Run the dump script</strong> pointing at that address:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/dump_to_sim.py<span class="w"> </span>N5182B<span class="w"> </span>TCPIP0::127.0.0.1::INSTR<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span><span class="nv">frequency</span><span class="o">=</span><span class="m">2</span>.4e9<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span><span class="nv">power</span><span class="o">=</span>-10<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span><span class="nv">output_enabled</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--out<span class="w"> </span>tests/sim/keysight/n5182b.yaml
 </pre></div>
 </div>
-<p>Next we will use the configuration file to create an instance of the signal generator instrument. By default pybench will look in the local directory for the configuration file. If the configuration file is not found, pybench will look in the global configuration directory based on the class property <em>config_locations</em>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">siggen</span> <span class="o">=</span> <span class="n">SMA100A</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">use_config_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Set the frequency to 1 GHz</span>
-<span class="n">siggen</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mf">1e9</span>
-
-<span class="c1"># Set the output power to -10 dBm</span>
-<span class="n">siggen</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span>
-
-<span class="c1"># Enable the output</span>
-<span class="n">siggen</span><span class="o">.</span><span class="n">output_enable</span> <span class="o">=</span> <span class="kc">True</span>
-</pre></div>
-</div>
+<p>The script walks every readable property on <code class="docutils literal notranslate"><span class="pre">N5182B</span></code> (skipping <code class="docutils literal notranslate"><span class="pre">reset</span></code>), then exercises any <code class="docutils literal notranslate"><span class="pre">--set</span> <span class="pre">name=value</span></code> setters you provide. Each captured (request, response) pair becomes a dialogue in the emitted YAML.</p>
+</li>
+<li><p><strong>Commit the YAML.</strong> From here on, CI replays it via pyvisa-sim — no instrument needed.</p></li>
+</ol>
+<p>The same script works against real hardware (drop <code class="docutils literal notranslate"><span class="pre">--backend</span></code> and use the instrument’s actual VISA address), which is useful when Command Expert doesn’t carry a simulator for your model.</p>
+</section>
+<section id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>The emitted YAML uses a <code class="docutils literal notranslate"><span class="pre">dialogues</span></code> block, so query responses are frozen at capture time — writes don’t update what subsequent reads return. For round-trip simulation, hand-edit the YAML to use a <code class="docutils literal notranslate"><span class="pre">properties</span></code> block (see existing files in <code class="docutils literal notranslate"><span class="pre">tests/sim/keysight/</span></code> for examples).</p></li>
+<li><p>Only properties defined directly on the instrument class are walked. Compound instruments with sub-objects (e.g., <code class="docutils literal notranslate"><span class="pre">E36233A.ch1</span></code>, <code class="docutils literal notranslate"><span class="pre">E36233A.ch2</span></code>) need to be dumped per sub-object or have setters supplied via <code class="docutils literal notranslate"><span class="pre">--set</span></code>.</p></li>
+<li><p>A passing sim test proves the SCPI string the class emits is correct, not that the instrument behaves as expected. Hardware-in-the-loop tests via the <code class="docutils literal notranslate"><span class="pre">instruments_required</span></code> pytest marker are still required for behavioral verification.</p></li>
+</ul>
 </section>
 </section>
 
@@ -314,23 +314,15 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="instruments/index.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">Supported Instruments</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="install.html">
+          
+          <a class="prev-page" href="config_file.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Installation</div>
+                <div class="title">Configuration</div>
                 
               </div>
             </a>
@@ -364,9 +356,10 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Usage Model</a><ul>
-<li><a class="reference internal" href="#basic-usage">Basic usage</a></li>
-<li><a class="reference internal" href="#using-configuration-files">Using configuration files</a></li>
+<li><a class="reference internal" href="#">Simulator-backed testing</a><ul>
+<li><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li><a class="reference internal" href="#recording-from-real-or-command-expert-emulated-hardware">Recording from real or Command Expert-emulated hardware</a></li>
+<li><a class="reference internal" href="#limitations">Limitations</a></li>
 </ul>
 </li>
 </ul>

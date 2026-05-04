@@ -32,6 +32,7 @@ The module is designed to also support testing frameworks, such as pytest, and t
    :caption: Special Functionality
 
    config_file
+   sim_testing
 
 Indices and tables
 ==================
