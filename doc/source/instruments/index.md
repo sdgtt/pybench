@@ -13,6 +13,12 @@ bench.hittite.hmct2220.rst
 :caption: Keysight
 
 bench.keysight.e36233a.rst
+bench.keysight.e5071c.rst
+bench.keysight.e8257d.rst
+bench.keysight.n5182b.rst
+bench.keysight.n5232a.rst
+bench.keysight.n9020b.rst
+bench.keysight.n9030b.rst
 bench.keysight.n9040b.rst
 
 ```
