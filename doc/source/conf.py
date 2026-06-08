@@ -49,3 +49,8 @@ linkcheck_ignore = [r"https://www.keysight.com/.*", r"https://keysight.com/.*"]
 
 html_theme = "furo"
 html_static_path = ["_static"]
+html_favicon = "_static/favicon.svg"
+html_theme_options = {
+    "light_logo": "pybench-logo.svg",
+    "dark_logo": "pybench-logo-dark.svg",
+}
