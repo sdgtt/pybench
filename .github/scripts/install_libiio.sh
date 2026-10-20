@@ -2,7 +2,7 @@
 
 # Set LIBIIO_BRANCH if not set
 if [ -z "$LIBIIO_BRANCH" ]; then
-    LIBIIO_BRANCH="v0.25"
+    LIBIIO_BRANCH="v1.0.0"
 fi
 
 sudo apt-get -qq update
