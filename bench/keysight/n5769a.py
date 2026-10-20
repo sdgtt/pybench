@@ -44,7 +44,6 @@ class N5769A(Common):
     @property
     def output_enabled(self):
         """Enable output (True) or disable output (False)"""
-        self._set_channel()
         return bool(self._instr.query("OUTP:STAT?") == "1")
 
     @output_enabled.setter
