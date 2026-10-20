@@ -51,3 +51,9 @@ class N5734A(Common):
     def output_enabled(self, value) -> bool:
         value = 1 if value else 0
         self._instr.write(f"OUTP:STAT {value}")
+
+    @property
+    def current_draw(self):
+        """Get the current draw"""
+        i_temp = self._instr.query("MEAS:CURR:DC?")
+        return self._to_float(i_temp)
