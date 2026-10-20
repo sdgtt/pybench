@@ -77,3 +77,36 @@ addopts = "--adi-hw-map"
 testpaths = [
     "tests",
 ]
+
+[dependency-groups]
+dev = [
+    "black",
+    "bump2version",
+    "codespell",
+    "coveralls",
+    "flake8",
+    "isort",
+    "matplotlib",
+    "plotly-express",
+    "pre-commit",
+    "pylibiio>=0.23.1",
+    "pytest>=4.6",
+    "pytest-cov",
+    "pytest-html==3.2.0",
+    "pytest-libiio>=0.0.18",
+    "pytoml",
+    "pyvisa",
+    "pyvisa-sim",
+    "scapy",
+    "scipy",
+]
+doc = [
+    "furo",
+    "myst-parser",
+    "pillow",
+    "sphinx>=2.0",
+    "sphinx-click",
+    "sphinx-favicon",
+    "sphinx-simplepdf",
+    "sphinxcontrib-mermaid",
+]
