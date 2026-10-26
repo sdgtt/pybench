@@ -25,12 +25,12 @@ state = SharedState()
 
 
 def read_state(prop):
-    global state
+    global state  # noqa: F824
     return getattr(state, prop)
 
 
 def write_state(prop, value):
-    global state
+    global state  # noqa: F824
     setattr(state, prop, value)
 
 
