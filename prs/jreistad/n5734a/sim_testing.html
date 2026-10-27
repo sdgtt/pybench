@@ -1,23 +1,25 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
-  <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Configuration" href="config_file.html" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="Configuration" href="config_file.html">
+        <link rel="prefetch" href="_static/pybench-logo.svg" as="image">
+        <link rel="prefetch" href="_static/pybench-logo-dark.svg" as="image">
 
-    <link rel="shortcut icon" href="_static/favicon.svg"/><!-- Generated with Sphinx 7.1.2 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="_static/favicon.svg"><!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
         <title>Simulator-backed testing - pybench v0.0.1</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
     
     
 
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
-  --color-code-foreground: black;
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
   
   }
   @media not print {
@@ -144,14 +146,10 @@
   </symbol>
 </svg>
 
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
-<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
-<label class="overlay sidebar-overlay" for="__navigation">
-  <div class="visually-hidden">Hide navigation sidebar</div>
-</label>
-<label class="overlay toc-overlay" for="__toc">
-  <div class="visually-hidden">Hide table of contents sidebar</div>
-</label>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
 
 <a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 
@@ -161,8 +159,7 @@
   <header class="mobile-header">
     <div class="header-left">
       <label class="nav-overlay-icon" for="__navigation">
-        <div class="visually-hidden">Toggle site navigation sidebar</div>
-        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
       </label>
     </div>
     <div class="header-center">
@@ -170,8 +167,7 @@
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
-        <button class="theme-toggle">
-          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
           <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
           <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
           <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
@@ -179,8 +175,7 @@
         </button>
       </div>
       <label class="toc-overlay-icon toc-header-icon" for="__toc">
-        <div class="visually-hidden">Toggle table of contents sidebar</div>
-        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
   </header>
@@ -188,7 +183,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="_static/pybench-logo.svg" alt="Light Logo"/>
     <img class="sidebar-logo only-dark" src="_static/pybench-logo-dark.svg" alt="Dark Logo"/>
@@ -206,7 +200,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_usage.html">Usage Model</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="instruments/index.html">Supported Instruments</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Supported Instruments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="instruments/index.html">Supported Instruments</a><input aria-label="Toggle navigation of Supported Instruments" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="instruments/bench.hittite.hmct2220.html">Hittite HMCT2220 Frequency Generator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="instruments/bench.keysight.e36233a.html">Keysight E36233A Power Supply</a></li>
 <li class="toctree-l2"><a class="reference internal" href="instruments/bench.keysight.e5071c.html">Keysight E5071C ENA Network Analyzer</a></li>
@@ -255,8 +249,7 @@
   </a>
 </div>
 <div class="theme-toggle-container theme-toggle-content">
-            <button class="theme-toggle">
-              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
               <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
               <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
@@ -264,22 +257,21 @@
             </button>
           </div>
           <label class="toc-overlay-icon toc-content-icon" for="__toc">
-            <div class="visually-hidden">Toggle table of contents sidebar</div>
-            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
           <section id="simulator-backed-testing">
-<h1>Simulator-backed testing<a class="headerlink" href="#simulator-backed-testing" title="Permalink to this heading">¶</a></h1>
+<h1>Simulator-backed testing<a class="headerlink" href="#simulator-backed-testing" title="Link to this heading">¶</a></h1>
 <p>pybench tests can run against <a class="reference external" href="https://pyvisa.readthedocs.io/projects/pyvisa-sim/">pyvisa-sim</a> instead of real hardware. This is what CI uses to verify that every instrument class emits the SCPI it claims to.</p>
 <section id="how-it-works">
-<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this heading">¶</a></h2>
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">bench.common.Common</span></code> accepts a <code class="docutils literal notranslate"><span class="pre">backend</span></code> argument that is passed to <code class="docutils literal notranslate"><span class="pre">pyvisa.ResourceManager</span></code>. Setting <code class="docutils literal notranslate"><span class="pre">backend=&quot;&lt;yaml-path&gt;&#64;sim&quot;</span></code> swaps the live VISA layer for pyvisa-sim, which serves canned responses out of a YAML file.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bench.keysight</span><span class="w"> </span><span class="kn">import</span> <span class="n">N5182B</span>
 
 <span class="n">sg</span> <span class="o">=</span> <span class="n">N5182B</span><span class="p">(</span>
-    <span class="n">address</span><span class="o">=</span><span class="s2">&quot;TCPIP0::sim-n5182b::inst0::INSTR&quot;</span><span class="p">,</span>
-    <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;tests/sim/keysight/n5182b.yaml@sim&quot;</span><span class="p">,</span>
+    <span class="n">address</span><span class="o">=</span><span class="s2">"TCPIP0::sim-n5182b::inst0::INSTR"</span><span class="p">,</span>
+    <span class="n">backend</span><span class="o">=</span><span class="s2">"tests/sim/keysight/n5182b.yaml@sim"</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">sg</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 <span class="n">sg</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mf">2.4e9</span>
@@ -289,7 +281,7 @@
 <p>Sim YAMLs live in <code class="docutils literal notranslate"><span class="pre">tests/sim/keysight/</span></code>. The CI workflow at <code class="docutils literal notranslate"><span class="pre">.github/workflows/test.yml</span></code> runs <code class="docutils literal notranslate"><span class="pre">tests/test_sim_keysight.py</span></code> against every YAML on push.</p>
 </section>
 <section id="recording-from-real-or-command-expert-emulated-hardware">
-<h2>Recording from real or Command Expert-emulated hardware<a class="headerlink" href="#recording-from-real-or-command-expert-emulated-hardware" title="Permalink to this heading">¶</a></h2>
+<h2>Recording from real or Command Expert-emulated hardware<a class="headerlink" href="#recording-from-real-or-command-expert-emulated-hardware" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">scripts/dump_to_sim.py</span></code> helper captures real SCPI traffic and writes a pyvisa-sim YAML.</p>
 <p>The intended workflow is:</p>
 <ol class="arabic">
@@ -310,7 +302,7 @@
 <p>The same script works against real hardware (drop <code class="docutils literal notranslate"><span class="pre">--backend</span></code> and use the instrument’s actual VISA address), which is useful when Command Expert doesn’t carry a simulator for your model.</p>
 </section>
 <section id="limitations">
-<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this heading">¶</a></h2>
+<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>The emitted YAML uses a <code class="docutils literal notranslate"><span class="pre">dialogues</span></code> block, so query responses are frozen at capture time — writes don’t update what subsequent reads return. For round-trip simulation, hand-edit the YAML to use a <code class="docutils literal notranslate"><span class="pre">properties</span></code> block (see existing files in <code class="docutils literal notranslate"><span class="pre">tests/sim/keysight/</span></code> for examples).</p></li>
 <li><p>Only properties defined directly on the instrument class are walked. Compound instruments with sub-objects (e.g., <code class="docutils literal notranslate"><span class="pre">E36233A.ch1</span></code>, <code class="docutils literal notranslate"><span class="pre">E36233A.ch2</span></code>) need to be dumped per sub-object or have setters supplied via <code class="docutils literal notranslate"><span class="pre">--set</span></code>.</p></li>
@@ -381,9 +373,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=57cfd03c"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
-    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+</div><script src="_static/documentation_options.js?v=2fea6348"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>
